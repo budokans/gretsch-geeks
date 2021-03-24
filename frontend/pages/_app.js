@@ -1,4 +1,5 @@
-import Page from "../components/Page";
+import PropTypes from 'prop-types';
+import Page from '../components/Page';
 
 export default function App({ Component, pageProps }) {
   return (
@@ -7,3 +8,8 @@ export default function App({ Component, pageProps }) {
     </Page>
   );
 }
+
+App.propTypes = {
+  Component: PropTypes.element,
+  pageProps: PropTypes.any,
+};
