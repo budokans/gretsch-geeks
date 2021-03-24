@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Header from './Header';
 
 const GlobalStyles = createGlobalStyle`
@@ -38,7 +38,6 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
     color: var(--black);
-    cursor: pointer;
   }
 
   a:hover {
@@ -50,13 +49,18 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+const Inner = styled.div`
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem;
+`;
+
 export default function Page({ children }) {
   return (
     <>
       <GlobalStyles />
       <Header />
-      <h1>I'm the page component</h1>
-      {children}
+      <Inner>{children}</Inner>
     </>
   );
 }
