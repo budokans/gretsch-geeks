@@ -1,3 +1,9 @@
+# The haters
+/haters
+
+# Keystone
+.keystone/
+
 # Logs
 logs
 *.log
