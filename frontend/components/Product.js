@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import { ItemStyles } from './styles/ItemStyles';
 
 export default function Product({ product }) {
-  return <p>{product.name}</p>;
+  return <ItemStyles>{product.name}</ItemStyles>;
 }
 
 Product.propTypes = {
