@@ -6,6 +6,7 @@ import {
 } from '@keystone-next/keystone/session';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { ProductImage } from './schemas/ProductImage';
 import 'dotenv/config';
 
 // What database is Keystone connecting to
@@ -47,6 +48,7 @@ export default withAuth(
       // TO DO: add schema items
       User,
       Product,
+      ProductImage,
     }),
     ui: {
       // Show UI to only those who pass this test
