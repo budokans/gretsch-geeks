@@ -17,13 +17,13 @@ const Logo = styled.h1`
   }
 `;
 
-const Container = styled.header`
+const HeaderStyles = styled.header`
   .bar {
     border-bottom: 10px solid var(--black, black);
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
   }
 
   .sub-bar {
@@ -35,16 +35,16 @@ const Container = styled.header`
 
 export default function Header() {
   return (
-    <Container>
+    <HeaderStyles>
       <div className="bar">
         <Logo>
           <Link href="/">Sick Fits</Link>
         </Logo>
+        <Nav />
       </div>
       <div className="sub-bar">
         <p>Search</p>
       </div>
-      <Nav />
-    </Container>
+    </HeaderStyles>
   );
 }
