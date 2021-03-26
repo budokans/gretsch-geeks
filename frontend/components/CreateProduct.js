@@ -2,7 +2,7 @@ import useForm from '../lib/useForm';
 import Form from './styles/Form';
 
 export default function CreateProduct() {
-  const { inputs, handleChange, clearForm, resetForm } = useForm({
+  const { inputs, handleChange } = useForm({
     name: '',
     description: '',
     price: '',
@@ -43,12 +43,13 @@ export default function CreateProduct() {
           onChange={handleChange}
         />
       </label>
-      <button type="button" onClick={clearForm}>
-        Clear Form
-      </button>
-      <button type="button" onClick={resetForm}>
-        Reset Form
-      </button>
+      <button type="submit">+ Add Product</button>
     </Form>
   );
 }
+
+// Remove buttons and create Add Product button
+// Modify handleChange such that if the type is file, then the value the destructured 0 index value of the e.target.files array.
+// Change description input to textarea
+// Wrap all in fieldset
+// Add file input
