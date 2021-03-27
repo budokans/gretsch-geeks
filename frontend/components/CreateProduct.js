@@ -47,7 +47,7 @@ export default function CreateProduct() {
         await createProduct();
       }}
     >
-      <fieldset>
+      <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="image">
           Image
           <input
