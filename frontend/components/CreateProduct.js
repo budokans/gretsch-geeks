@@ -1,5 +1,31 @@
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
+
+const CREATE_PRODUCT_MUTATION = gql`
+  mutation CREATE_PRODUCT_MUTATION(
+    $name: String!
+    $price: Int!
+    $description: String!
+    $image: Upload
+  ) {
+    createProduct(
+      data: {
+        name: $name
+        price: $price
+        description: $description
+        status: "AVAILABLE"
+        photo: { create: { image: $image, altText: $name } }
+      }
+    ) {
+      id
+      name
+      price
+      description
+    }
+  }
+`;
 
 export default function CreateProduct() {
   const { inputs, handleChange } = useForm({
@@ -9,16 +35,33 @@ export default function CreateProduct() {
     price: '',
   });
 
+  const [
+    createProduct,
+    { data, error, loading },
+  ] = useMutation(CREATE_PRODUCT_MUTATION, { variables: inputs });
+
   return (
-    <Form>
+    <Form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await createProduct();
+      }}
+    >
       <fieldset>
         <label htmlFor="image">
           Image
-          <input type="file" id="image" name="image" onChange={handleChange} />
+          <input
+            required
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleChange}
+          />
         </label>
         <label htmlFor="name">
           Name
           <input
+            required
             type="text"
             id="name"
             name="name"
@@ -30,6 +73,7 @@ export default function CreateProduct() {
         <label htmlFor="price">
           Price
           <input
+            required
             type="number"
             id="price"
             name="price"
