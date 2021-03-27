@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled from 'styled-components';
 import DisplayError from './ErrorMessage';
+import formatMoney from '../lib/formatMoney';
 
 const ProductStyles = styled.div`
   display: grid;
@@ -58,7 +59,7 @@ export default function SingleProduct({ id }) {
       />
       <div className="details">
         <h2>{product.name}</h2>
-        <p>{product.price}</p>
+        <p>{formatMoney(product.price)}</p>
         <p>{product.description}</p>
       </div>
     </ProductStyles>
