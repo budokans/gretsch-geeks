@@ -2,7 +2,24 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import styled from 'styled-components';
 import DisplayError from './ErrorMessage';
+
+const ProductStyles = styled.div`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  min-height: 800px;
+  max-width: var(--max-width);
+  justify-content: center;
+  align-items: top;
+  grid-gap: 2rem;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+`;
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
@@ -31,7 +48,7 @@ export default function SingleProduct({ id }) {
   const { Product: product } = data;
 
   return (
-    <>
+    <ProductStyles>
       <Head>
         <title>{product.name} | Sick Fits</title>
       </Head>
@@ -44,7 +61,7 @@ export default function SingleProduct({ id }) {
         <p>{product.price}</p>
         <p>{product.description}</p>
       </div>
-    </>
+    </ProductStyles>
   );
 }
 
