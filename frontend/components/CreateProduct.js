@@ -3,7 +3,7 @@ import Router from 'next/router';
 import gql from 'graphql-tag';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
-import ErrorMessage from './ErrorMessage';
+import DisplayError from './ErrorMessage';
 import { ALL_PRODUCTS_QUERY } from './Products';
 
 const CREATE_PRODUCT_MUTATION = gql`
@@ -52,7 +52,7 @@ export default function CreateProduct() {
         Router.push(`/products/${res.data.createProduct.id}`);
       }}
     >
-      <ErrorMessage error={error} />
+      <DisplayError error={error} />
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="image">
           Image
