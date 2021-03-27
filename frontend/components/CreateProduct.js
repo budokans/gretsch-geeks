@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
+import ErrorMessage from './ErrorMessage';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -28,7 +29,7 @@ const CREATE_PRODUCT_MUTATION = gql`
 `;
 
 export default function CreateProduct() {
-  const { inputs, handleChange } = useForm({
+  const { inputs, handleChange, clearForm } = useForm({
     image: {},
     name: '',
     description: '',
@@ -45,8 +46,10 @@ export default function CreateProduct() {
       onSubmit={async (e) => {
         e.preventDefault();
         await createProduct();
+        clearForm();
       }}
     >
+      <ErrorMessage error={error} />
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="image">
           Image
