@@ -46,6 +46,8 @@ export default function UpdateProduct({ id }) {
 
   const { inputs, handleChange, clearForm, resetForm } = useForm(data?.Product);
 
+  if (loading) return <p>Loading...</p>;
+
   return (
     <Form
       onSubmit={async (e) => {
