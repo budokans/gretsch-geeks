@@ -10,7 +10,6 @@ const ProductStyles = styled.div`
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
-  min-height: 800px;
   max-width: var(--max-width);
   justify-content: center;
   align-items: top;
