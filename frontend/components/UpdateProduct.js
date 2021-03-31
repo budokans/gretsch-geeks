@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/client';
+import isEmpty from 'lodash/isEmpty';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
@@ -46,7 +47,7 @@ export default function UpdateProduct({ id }) {
 
   const { inputs, handleChange, clearForm, resetForm } = useForm(data?.Product);
 
-  if (loading) return <p>Loading...</p>;
+  if (isEmpty(inputs)) return <p>Loading...</p>;
 
   return (
     <Form
