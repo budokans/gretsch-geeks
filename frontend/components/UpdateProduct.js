@@ -36,16 +36,16 @@ const UPDATE_PRODUCT_MUTATION = gql`
 `;
 
 export default function UpdateProduct({ id }) {
-  const { data, error, loading } = useQuery(SINGLE_PRODUCT_QUERY, {
+  const { data, error } = useQuery(SINGLE_PRODUCT_QUERY, {
     variables: { id },
   });
 
   const [
     updateProduct,
-    { data: updateData, error: updateError, loading: updateLoading },
+    { error: updateError, loading: updateLoading },
   ] = useMutation(UPDATE_PRODUCT_MUTATION, { variables: { id } });
 
-  const { inputs, handleChange, clearForm, resetForm } = useForm(data?.Product);
+  const { inputs, handleChange } = useForm(data?.Product);
 
   if (isEmpty(inputs)) return <p>Loading...</p>;
 
@@ -53,7 +53,7 @@ export default function UpdateProduct({ id }) {
     <Form
       onSubmit={async (e) => {
         e.preventDefault();
-        const res = await updateProduct({
+        await updateProduct({
           variables: {
             id,
             name: inputs.name,
@@ -61,13 +61,10 @@ export default function UpdateProduct({ id }) {
             price: inputs.price,
           },
         }).catch(console.error.message);
-        console.log(res);
-
-        // clearForm();
-        // Router.push(`/products/${res.data.createProduct.id}`);
       }}
     >
       <DisplayError error={error || updateError} />
+
       <fieldset disabled={updateLoading} aria-busy={updateLoading}>
         <label htmlFor="name">
           Name
@@ -104,7 +101,7 @@ export default function UpdateProduct({ id }) {
           />
         </label>
 
-        <button type="submit">+ Add Product</button>
+        <button type="submit">Update Product</button>
       </fieldset>
     </Form>
   );
