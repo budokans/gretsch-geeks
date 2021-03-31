@@ -11,7 +11,7 @@ const CREATE_PRODUCT_MUTATION = gql`
     $name: String!
     $price: Int!
     $description: String!
-    $image: Upload
+    $image: Upload!
   ) {
     createProduct(
       data: {
@@ -49,7 +49,7 @@ export default function CreateProduct() {
         e.preventDefault();
         const res = await createProduct();
         clearForm();
-        Router.push(`/products/${res.data.createProduct.id}`);
+        Router.push(`/product/${res.data.createProduct.id}`);
       }}
     >
       <DisplayError error={error} />
