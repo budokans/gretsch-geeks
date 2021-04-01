@@ -29,12 +29,16 @@ export default function Pagination({ pageNum }) {
       <Head>
         <title>Sick Fits | Page {pageNum}/___</title>
       </Head>
-      <Link href="/">← Previous</Link>
+      <Link href={`products/page/${pageNum - 1}`}>
+        <a aria-disabled={pageNum === 1}>← Previous</a>
+      </Link>
       <p>
         Page {pageNum} of {pageCount}
       </p>
       <p>{productsCount} items total</p>
-      <Link href="/">Next →</Link>
+      <Link href={`products/page/${pageNum + 1}`}>
+        <a aria-disabled={pageNum === pageCount}>Next →</a>
+      </Link>
     </PaginationStyles>
   );
 }
