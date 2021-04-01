@@ -81,6 +81,8 @@ export default function CreateProduct() {
           <input
             required
             type="number"
+            min="500"
+            max="2147483647"
             id="price"
             name="price"
             placeholder="Price"
