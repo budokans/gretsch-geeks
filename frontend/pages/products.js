@@ -4,9 +4,9 @@ import Products from '../components/Products';
 export default function ProductsPage() {
   return (
     <>
-      <Pagination page="/" />
+      <Pagination pageNum={1} />
       <Products />
-      <Pagination page="/" />
+      <Pagination pageNum={1} />
     </>
   );
 }

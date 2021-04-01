@@ -15,7 +15,7 @@ const PAGINATION_QUERY = gql`
   }
 `;
 
-export default function Pagination({ page }) {
+export default function Pagination({ pageNum }) {
   const { data, error, loading } = useQuery(PAGINATION_QUERY);
 
   if (loading) return <p>"Loading..."</p>;
@@ -27,11 +27,11 @@ export default function Pagination({ page }) {
   return (
     <PaginationStyles>
       <Head>
-        <title>Sick Fits | Page {page}/___</title>
+        <title>Sick Fits | Page {pageNum}/___</title>
       </Head>
       <Link href="/">← Previous</Link>
       <p>
-        Page {page} of {pageCount}
+        Page {pageNum} of {pageCount}
       </p>
       <p>{productsCount} items total</p>
       <Link href="/">Next →</Link>
@@ -40,5 +40,5 @@ export default function Pagination({ page }) {
 }
 
 Pagination.propTypes = {
-  page: PropTypes.string.isRequired,
+  pageNum: PropTypes.number.isRequired,
 };
