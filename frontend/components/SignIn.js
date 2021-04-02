@@ -43,7 +43,7 @@ export default function SignIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { res } = await signin();
+    const res = await signin();
     if (
       res.data.authenticateUserWithPassword.__typename ===
       'UserAuthenticationWithPasswordSuccess'
