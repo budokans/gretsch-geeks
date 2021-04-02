@@ -68,7 +68,10 @@ export default function SignIn() {
 
       <DisplayError error={registerError || signInErrorMessage} />
 
-      <fieldset disabled={registerloading} aria-busy={registerloading}>
+      <fieldset
+        disabled={registerloading || signInloading}
+        aria-busy={registerloading || signInloading}
+      >
         <label htmlFor="name">
           Name
           <input
