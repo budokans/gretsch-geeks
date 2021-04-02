@@ -5,7 +5,6 @@ import useForm from '../lib/useForm';
 import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
 import { ALL_PRODUCTS_QUERY } from './Products';
-import { updateCacheCount } from '../lib/updateCacheCount';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -40,24 +39,7 @@ export default function CreateProduct() {
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
-      update(cache, { data }) {
-        const newProductFromResponse = data?.createProduct.Product;
-        const existingProducts = cache.readQuery({ query: ALL_PRODUCTS_QUERY });
-
-        if (existingProducts && newProductFromResponse) {
-          cache.writeQuery({
-            query: ALL_PRODUCTS_QUERY,
-            data: {
-              allProducts: [
-                ...existingProducts?.allProducts,
-                newProductFromResponse,
-              ],
-            },
-          });
-        }
-
-        updateCacheCount(cache, { operation: 'create' });
-      },
+      refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     }
   );
 

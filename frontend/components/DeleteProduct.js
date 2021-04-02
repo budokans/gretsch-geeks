@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import { updateCacheCount } from '../lib/updateCacheCount';
 
 const DELETE_PRODUCT_MUTATION = gql`
   mutation DELETE_PRODUCT_MUTATION($id: ID!) {
@@ -13,7 +12,6 @@ const DELETE_PRODUCT_MUTATION = gql`
 `;
 
 function update(cache, payload) {
-  updateCacheCount(cache, { operation: 'delete' });
   return cache.evict(cache.identify(payload.data.deleteProduct));
 }
 
