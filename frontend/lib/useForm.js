@@ -33,7 +33,7 @@ export default function useForm(initial = {}) {
   }
 
   function resetForm() {
-    setInputs({});
+    setInputs(initial);
   }
 
   return { inputs, handleChange, clearForm, resetForm };
