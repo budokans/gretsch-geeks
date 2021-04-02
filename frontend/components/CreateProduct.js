@@ -39,7 +39,22 @@ export default function CreateProduct() {
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
-      refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
+      update(cache, { data }) {
+        const newProductFromResponse = data?.createProduct.Product;
+        const existingProducts = cache.readQuery({ query: ALL_PRODUCTS_QUERY });
+
+        if (existingProducts && newProductFromResponse) {
+          cache.writeQuery({
+            query: ALL_PRODUCTS_QUERY,
+            data: {
+              allProducts: [
+                ...existingProducts?.allProducts,
+                newProductFromResponse,
+              ],
+            },
+          });
+        }
+      },
     }
   );
 
