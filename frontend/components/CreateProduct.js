@@ -56,7 +56,7 @@ export default function CreateProduct() {
           });
         }
 
-        updateCacheCount(cache);
+        updateCacheCount(cache, { operation: 'create' });
       },
     }
   );
