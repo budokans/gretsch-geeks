@@ -30,10 +30,16 @@ export default function SignIn() {
     password: '',
   });
 
-  const [signin, { error, loading }] = useMutation(SIGNIN_MUTATION, {
+  const [signin, { data, loading }] = useMutation(SIGNIN_MUTATION, {
     variables: inputs,
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
+
+  const errorMessage =
+    data?.authenticateUserWithPassword.__typename ===
+    'UserAuthenticationWithPasswordFailure'
+      ? data.authenticateUserWithPassword
+      : undefined;
 
   return (
     <Form
@@ -45,7 +51,10 @@ export default function SignIn() {
         // Router.push(`/`);
       }}
     >
-      <DisplayError error={error} />
+      <h2>Sign into your account</h2>
+
+      <DisplayError error={errorMessage} />
+
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="email">
           Email
