@@ -4,7 +4,6 @@ import Router from 'next/router';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
-import { CURRENT_USER_QUERY } from './User';
 
 const REGISTER_USER_MUTATION = gql`
   mutation REGISTER_USER_MUTATION(
@@ -27,17 +26,13 @@ export default function SignIn() {
     password: '',
   });
 
-  const [createUser, { data, error, loading }] = useMutation(
-    REGISTER_USER_MUTATION,
-    {
-      variables: inputs,
-      refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    }
-  );
+  const [createUser, { error, loading }] = useMutation(REGISTER_USER_MUTATION, {
+    variables: inputs,
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await createUser();
+    await createUser();
     Router.push(`/`);
     resetForm();
   }
