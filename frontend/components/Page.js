@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from './Header';
@@ -59,6 +60,9 @@ const Inner = styled.div`
 export default function Page({ children }) {
   return (
     <>
+      <Head>
+        <link rel="shortcut icon" href="/static/favicon.png" />
+      </Head>
       <GlobalStyles />
       <Header />
       <Inner>{children}</Inner>
