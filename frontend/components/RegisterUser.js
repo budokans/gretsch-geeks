@@ -43,13 +43,22 @@ export default function SignIn() {
     }
   );
 
+  const signInErrorMessage =
+    signInData?.authenticateUserWithPassword.__typename ===
+    'UserAuthenticationWithPasswordFailure'
+      ? signInData.authenticateUserWithPassword
+      : undefined;
+
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await createUser();
-    console.log(res);
-    const res2 = await signIn();
-    console.log(res2);
-    Router.push(`/`);
+    await createUser();
+    const resSignIn = await signIn();
+    if (
+      resSignIn.data.authenticateUserWithPassword.__typename ===
+      'UserAuthenticationWithPasswordSuccess'
+    ) {
+      Router.push(`/`);
+    }
     resetForm();
   }
 
@@ -57,7 +66,7 @@ export default function SignIn() {
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign up</h2>
 
-      <DisplayError error={registerError} />
+      <DisplayError error={registerError || signInErrorMessage} />
 
       <fieldset disabled={registerloading} aria-busy={registerloading}>
         <label htmlFor="name">
