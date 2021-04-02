@@ -4,6 +4,8 @@ import Router from 'next/router';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
+import { SIGN_IN_MUTATION } from './SignIn';
+import { CURRENT_USER_QUERY } from './User';
 
 const REGISTER_USER_MUTATION = gql`
   mutation REGISTER_USER_MUTATION(
@@ -26,13 +28,27 @@ export default function SignIn() {
     password: '',
   });
 
-  const [createUser, { error, loading }] = useMutation(REGISTER_USER_MUTATION, {
-    variables: inputs,
-  });
+  const [createUser, { registerError, registerloading }] = useMutation(
+    REGISTER_USER_MUTATION,
+    {
+      variables: inputs,
+    }
+  );
+
+  const [signIn, { signInData, signInloading }] = useMutation(
+    SIGN_IN_MUTATION,
+    {
+      variables: { email: inputs.email, password: inputs.password },
+      refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    }
+  );
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await createUser();
+    const res = await createUser();
+    console.log(res);
+    const res2 = await signIn();
+    console.log(res2);
     Router.push(`/`);
     resetForm();
   }
@@ -41,9 +57,9 @@ export default function SignIn() {
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign up</h2>
 
-      <DisplayError error={error} />
+      <DisplayError error={registerError} />
 
-      <fieldset disabled={loading} aria-busy={loading}>
+      <fieldset disabled={registerloading} aria-busy={registerloading}>
         <label htmlFor="name">
           Name
           <input
@@ -77,6 +93,7 @@ export default function SignIn() {
             aria-label="Password"
             type="password"
             name="password"
+            minLength="8"
             autoComplete="password"
             placeholder="Password"
             value={inputs.password}
