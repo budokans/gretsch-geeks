@@ -5,7 +5,7 @@ import useForm from '../lib/useForm';
 import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
 import { ALL_PRODUCTS_QUERY } from './Products';
-import { PAGINATION_QUERY } from './Pagination';
+import { updateCacheCount } from '../lib/updateCacheCount';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -56,15 +56,7 @@ export default function CreateProduct() {
           });
         }
 
-        const prevProductsCount = cache.readQuery({ query: PAGINATION_QUERY });
-        if (prevProductsCount) {
-          cache.writeQuery({
-            query: PAGINATION_QUERY,
-            data: {
-              _allProductsMeta: prevProductsCount + 1,
-            },
-          });
-        }
+        updateCacheCount(cache);
       },
     }
   );
