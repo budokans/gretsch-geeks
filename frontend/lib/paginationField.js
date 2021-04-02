@@ -15,13 +15,32 @@ export default function paginationField() {
 
       // Check for existing items
       const items = existing.slice(skip, skip + first).filter((x) => x);
+
+      if (items.length && items.length !== first && pageNum === pagesTotal) {
+        return items;
+      }
+
       // If no items, make a network request to get them
       if (items.length !== first) return false;
+
       // If there are items, return them from the cache
-      if (items.length) console.log(`There are ${items.length} in the cache.`);
+      if (items.length) {
+        console.log(`There are ${items.length} items in the cache.`);
+        return items;
+      }
 
       return false;
     },
-    merge() {},
+    merge(existing, incoming, { args }) {
+      const { skip } = args;
+      console.log(`Merging ${incoming.length} from the network.`);
+      const merged = existing ? existing.slice(0) : [];
+
+      for (let i = skip; i < skip + incoming.length; ++i) {
+        merged[i] = incoming[i - skip];
+      }
+      console.log(merged);
+      return merged;
+    },
   };
 }
