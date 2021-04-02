@@ -41,16 +41,20 @@ export default function SignIn() {
       ? data.authenticateUserWithPassword
       : undefined;
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const { res } = await signin();
+    if (
+      res.data.authenticateUserWithPassword.__typename ===
+      'UserAuthenticationWithPasswordSuccess'
+    ) {
+      Router.push(`/`);
+    }
+    resetForm();
+  }
+
   return (
-    <Form
-      method="POST"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        await signin();
-        resetForm();
-        // Router.push(`/`);
-      }}
-    >
+    <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign into your account</h2>
 
       <DisplayError error={errorMessage} />
