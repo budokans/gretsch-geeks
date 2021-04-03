@@ -29,7 +29,7 @@ export default function RequestReset() {
     await sendUserPasswordResetLink().catch(console.error);
     resetForm();
   }
-
+  console.log(data?.sendUserPasswordResetLink);
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Reset password</h2>
@@ -40,23 +40,25 @@ export default function RequestReset() {
         <p>Success! Check your email for your password reset link.</p>
       )}
 
-      <fieldset disabled={loading} aria-busy={loading}>
-        <label htmlFor="email">
-          Email
-          <input
-            required
-            aria-label="Email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="Email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </label>
+      {data?.sendUserPasswordResetLink !== null && (
+        <fieldset disabled={loading} aria-busy={loading}>
+          <label htmlFor="email">
+            Email
+            <input
+              required
+              aria-label="Email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              placeholder="Email"
+              value={inputs.email}
+              onChange={handleChange}
+            />
+          </label>
 
-        <button type="submit">Reset</button>
-      </fieldset>
+          <button type="submit">Reset</button>
+        </fieldset>
+      )}
     </Form>
   );
 }
