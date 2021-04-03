@@ -10,7 +10,7 @@ export default function ResetPage({ query }) {
     </>
   ) : (
     <>
-      <Reset />
+      <Reset token={query.token} />
     </>
   );
 }

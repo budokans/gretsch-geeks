@@ -22,14 +22,14 @@ const RESET_MUTATION = gql`
   }
 `;
 
-export default function Reset() {
+export default function Reset({ token }) {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
     password: '',
-    token: '',
+    token,
   });
 
-  const [redeemUserPasswordResetToken, { data, loading }] = useMutation(
+  const [redeemUserPasswordResetToken, { data, error, loading }] = useMutation(
     RESET_MUTATION,
     {
       variables: inputs,
@@ -50,7 +50,7 @@ export default function Reset() {
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Reset your password below.</h2>
 
-      <DisplayError error={tokenError} />
+      <DisplayError error={tokenError || error} />
 
       {data?.redeemUserPasswordResetToken === null && (
         <p>Success! Now just log in with your new password.</p>
