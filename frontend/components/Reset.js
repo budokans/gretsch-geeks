@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
@@ -28,12 +29,16 @@ export default function Reset() {
     token: '',
   });
 
-  const [redeemUserPasswordResetToken, { data, error, loading }] = useMutation(
+  const [redeemUserPasswordResetToken, { data, loading }] = useMutation(
     RESET_MUTATION,
     {
       variables: inputs,
     }
   );
+
+  const tokenError = data?.redeemUserPasswordResetToken?.code
+    ? data.redeemUserPasswordResetToken
+    : undefined;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,7 +50,7 @@ export default function Reset() {
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Reset your password below.</h2>
 
-      <DisplayError error={error} />
+      <DisplayError error={tokenError} />
 
       {data?.redeemUserPasswordResetToken === null && (
         <p>Success! Now just log in with your new password.</p>
@@ -85,3 +90,7 @@ export default function Reset() {
     </Form>
   );
 }
+
+Reset.propTypes = {
+  token: PropTypes.string.isRequired,
+};
