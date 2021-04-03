@@ -7,7 +7,6 @@ import Form from './styles/Form';
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
     sendUserPasswordResetLink(email: $email) {
-      # maybe
       code
     }
   }
@@ -18,7 +17,7 @@ export default function RequestReset() {
     email: '',
   });
 
-  const [sendUserPasswordResetLink, { error, loading }] = useMutation(
+  const [sendUserPasswordResetLink, { data, error, loading }] = useMutation(
     REQUEST_RESET_MUTATION,
     {
       variables: inputs,
@@ -36,6 +35,10 @@ export default function RequestReset() {
       <h2>Reset password</h2>
 
       <DisplayError error={error} />
+
+      {data?.sendUserPasswordResetLink === null && (
+        <p>Success! Check your email for your password reset link.</p>
+      )}
 
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="email">

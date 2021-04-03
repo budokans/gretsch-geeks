@@ -30,7 +30,7 @@ const { withAuth } = createAuth({
   },
   passwordResetLink: {
     async sendToken(args) {
-      const data = args;
+      console.log(args);
     },
   },
 });
