@@ -1,15 +1,15 @@
 import { createTransport } from 'nodemailer';
 
 const transporter = createTransport({
+  port: Number(process.env.MAIL_PORT),
   host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
   auth: {
-    user: MAIL_USER,
-    pass: MAIL_PASS,
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
 });
 
-function makeNiceEmail(text: string) {
+function makeNiceEmail(text: string): string {
   return `
     <div style="
       border: 1px solid black; 
