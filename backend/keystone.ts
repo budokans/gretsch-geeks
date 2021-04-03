@@ -10,7 +10,6 @@ import { ProductImage } from './schemas/ProductImage';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 
-// What database is Keystone connecting to
 const databaseURL = process.env.DATABASE_URL;
 
 // What session configuration is each connected governed by
@@ -29,9 +28,14 @@ const { withAuth } = createAuth({
     fields: ['name', 'email', 'password'],
     // TO DO: add initial roles here
   },
+  passwordResetLink: {
+    async sendToken(args) {
+      const data = args;
+    },
+  },
 });
 
-// What frontend server is connecting to the Keystone backend, which db typ etc
+// Which frontend server is connecting to the Keystone backend, which db type etc
 export default withAuth(
   config({
     server: {
