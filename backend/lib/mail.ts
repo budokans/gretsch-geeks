@@ -24,3 +24,17 @@ function makeNiceEmail(text: string): string {
     </div>
   `;
 }
+
+export async function sendPasswordResetEmail(
+  resetToken: string,
+  to: string
+): Promise<void> {
+  const info = await transporter.sendMail({
+    to,
+    from: 'test@example.com',
+    subject: 'Your password reset token',
+    html: makeNiceEmail(`Your password reset token is here!
+      <a href="${process.env.FRONTEND_URL}/reset?token=${resetToken}"/>Click here to reset your password.</a>
+    `),
+  });
+}
