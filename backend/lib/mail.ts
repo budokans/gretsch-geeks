@@ -1,4 +1,4 @@
-import { createTransport } from 'nodemailer';
+import { createTransport, getTestMessageUrl } from 'nodemailer';
 
 const transporter = createTransport({
   port: Number(process.env.MAIL_PORT),
@@ -37,4 +37,8 @@ export async function sendPasswordResetEmail(
       <a href="${process.env.FRONTEND_URL}/reset?token=${resetToken}"/>Click here to reset your password.</a>
     `),
   });
+
+  if (process.env.MAIL_USER.includes('ethereal.email')) {
+    console.log(`💌 Message sent! Preview at ${getTestMessageUrl(info)}`);
+  }
 }
