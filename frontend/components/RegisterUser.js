@@ -100,7 +100,7 @@ export default function SignIn() {
             onChange={handleChange}
           />
         </label>
-        <label htmlFor="name">
+        <label htmlFor="password">
           Password
           <input
             required
