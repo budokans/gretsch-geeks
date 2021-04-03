@@ -28,14 +28,14 @@ export default function SignIn() {
     password: '',
   });
 
-  const [createUser, { registerError, registerloading }] = useMutation(
-    REGISTER_USER_MUTATION,
-    {
-      variables: inputs,
-    }
-  );
+  const [
+    createUser,
+    { error: registerError, loading: registerloading },
+  ] = useMutation(REGISTER_USER_MUTATION, {
+    variables: inputs,
+  });
 
-  const [signIn, { signInData, signInloading }] = useMutation(
+  const [signIn, { data: signInData, loading: signInloading }] = useMutation(
     SIGN_IN_MUTATION,
     {
       variables: { email: inputs.email, password: inputs.password },
@@ -51,13 +51,15 @@ export default function SignIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await createUser();
-    const resSignIn = await signIn();
-    if (
-      resSignIn.data.authenticateUserWithPassword.__typename ===
-      'UserAuthenticationWithPasswordSuccess'
-    ) {
-      Router.push(`/`);
+    const res = await createUser().catch(console.error);
+    if (res?.data?.createUser) {
+      const resSignIn = await signIn();
+      if (
+        resSignIn.data.authenticateUserWithPassword.__typename ===
+        'UserAuthenticationWithPasswordSuccess'
+      ) {
+        Router.push(`/`);
+      }
     }
     resetForm();
   }
