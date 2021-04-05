@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import CartStyles from './styles/CartStyles';
 import Supreme from './styles/Supreme';
 import { useUser } from './User';
@@ -76,4 +77,8 @@ Cart.Item = function CartItem({ cartItem }) {
       </p>
     </Item>
   );
+};
+
+Cart.Item.propTypes = {
+  cartItem: PropTypes.object.isRequired,
 };
