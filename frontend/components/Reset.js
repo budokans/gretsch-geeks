@@ -58,10 +58,6 @@ export default function Reset({ token }) {
 
       <DisplayError error={tokenError || error} />
 
-      {data?.redeemUserPasswordResetToken === null && (
-        <p>Success! Now just log in with your new password.</p>
-      )}
-
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="email">
           Email
