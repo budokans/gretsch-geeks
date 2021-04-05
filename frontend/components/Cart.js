@@ -1,46 +1,16 @@
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import CartStyles from './styles/CartStyles';
+import { Container, Item } from './styles/CartStyles';
 import Supreme from './styles/Supreme';
 import { useUser } from './User';
 import formatMoney from '../lib/formatMoney';
 import calcTotalPrice from '../lib/calcTotalPrice';
-
-export const Item = styled.li`
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--lightGrey);
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto;
-  grid-template-areas:
-    'image product-name'
-    'image price';
-  img {
-    grid-area: image;
-    margin-right: 1rem;
-  }
-  h3 {
-    grid-area: product-name;
-  }
-  p {
-    grid-area: price;
-    align-self: end;
-  }
-  h3,
-  p {
-    margin: 0 1rem 0 0;
-    em {
-      font-size: 1.2rem;
-    }
-  }
-`;
 
 export default function Cart() {
   const me = useUser();
   if (!me) return null;
 
   return (
-    <CartStyles open>
+    <Container open>
       <header>
         <Supreme>{me.name}'s cart</Supreme>
       </header>
@@ -52,7 +22,7 @@ export default function Cart() {
       <footer>
         <p>{formatMoney(calcTotalPrice(me.cart))}</p>
       </footer>
-    </CartStyles>
+    </Container>
   );
 }
 
