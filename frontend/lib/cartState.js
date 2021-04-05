@@ -5,7 +5,7 @@ export const LocalStateContext = createContext();
 const LocalStateProvider = LocalStateContext.Provider;
 
 export function CartContextProvider({ children }) {
-  const [cartOpen, setCartOpen] = useState(true);
+  const [cartOpen, setCartOpen] = useState(false);
 
   function toggleCartOpen() {
     setCartOpen(!cartOpen);
