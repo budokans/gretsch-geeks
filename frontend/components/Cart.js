@@ -4,13 +4,15 @@ import Supreme from './styles/Supreme';
 import { useUser } from './User';
 import formatMoney from '../lib/formatMoney';
 import calcTotalPrice from '../lib/calcTotalPrice';
+import { useCartContext } from '../lib/cartState';
 
 export default function Cart() {
+  const { cartOpen } = useCartContext();
   const me = useUser();
   if (!me) return null;
 
   return (
-    <Container open>
+    <Container open={cartOpen}>
       <header>
         <Supreme>{me.name}'s cart</Supreme>
       </header>
