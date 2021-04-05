@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
+import SignIn from './SignIn';
 
 const RESET_MUTATION = gql`
   mutation RESET_MUTATION(
@@ -46,7 +47,12 @@ export default function Reset({ token }) {
     resetForm();
   }
 
-  return (
+  return data?.redeemUserPasswordResetToken === null ? (
+    <>
+      <h2>Success! Now just log in with your new password.</h2>
+      <SignIn />
+    </>
+  ) : (
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Reset your password below.</h2>
 
