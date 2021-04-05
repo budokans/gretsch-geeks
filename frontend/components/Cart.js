@@ -9,13 +9,28 @@ export const Item = styled.li`
   padding: 1rem 0;
   border-bottom: 1px solid var(--lightGrey);
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'image product-name'
+    'image price';
   img {
+    grid-area: image;
     margin-right: 1rem;
+  }
+  h3 {
+    grid-area: product-name;
+  }
+  p {
+    grid-area: price;
+    align-self: end;
   }
   h3,
   p {
-    margin: 0;
+    margin: 0 1rem 0 0;
+    em {
+      font-size: 1.2rem;
+    }
   }
 `;
 
@@ -53,11 +68,11 @@ Cart.Item = function CartItem({ cartItem }) {
       />
       <h3>{product.name}</h3>
       <p>
-        {formatMoney(product.price * cartItem.quantity)} (
+        {formatMoney(product.price * cartItem.quantity)}
         <em>
-          {cartItem.quantity} &times; {formatMoney(product.price)}
+          {` ( ${cartItem.quantity}`} &times;{' '}
+          {`${formatMoney(product.price)} )`}
         </em>
-        )
       </p>
     </Item>
   );
