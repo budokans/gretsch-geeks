@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Container, Item } from './styles/CartStyles';
+import CloseButton from './styles/CloseButton';
 import Supreme from './styles/Supreme';
 import { useUser } from './User';
 import formatMoney from '../lib/formatMoney';
@@ -7,7 +8,7 @@ import calcTotalPrice from '../lib/calcTotalPrice';
 import { useCartContext } from '../lib/cartState';
 
 export default function Cart() {
-  const { cartOpen } = useCartContext();
+  const { cartOpen, toggleCartOpen } = useCartContext();
   const me = useUser();
   if (!me) return null;
 
@@ -15,7 +16,11 @@ export default function Cart() {
     <Container open={cartOpen}>
       <header>
         <Supreme>{me.name}'s cart</Supreme>
+        <CloseButton type="button" onClick={toggleCartOpen}>
+          X
+        </CloseButton>
       </header>
+
       <ul>
         {me.cart.map((cartItem) => (
           <Cart.Item key={cartItem.id} cartItem={cartItem} />
