@@ -1,17 +1,25 @@
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import RequestReset from '../components/RequestReset';
 import Reset from '../components/Reset';
 
+const Container = styled.div`
+  max-width: 600px;
+  margin: 2rem auto 0;
+`;
+
 export default function ResetPage({ query }) {
-  return !query?.token ? (
-    <>
-      <p>Sorry, your token has expired or was invalid. Please try again.</p>
-      <RequestReset />
-    </>
-  ) : (
-    <>
-      <Reset token={query.token} />
-    </>
+  return (
+    <Container>
+      {!query?.token ? (
+        <>
+          <p>Sorry, your token has expired or was invalid. Please try again.</p>
+          <RequestReset />
+        </>
+      ) : (
+        <Reset token={query.token} />
+      )}
+    </Container>
   );
 }
 
