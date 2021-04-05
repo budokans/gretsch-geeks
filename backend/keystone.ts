@@ -11,6 +11,7 @@ import { CartItem } from './schemas/CartItem';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
+import { extendGraphqlSchema } from './mutations';
 
 const databaseURL = process.env.DATABASE_URL;
 
@@ -62,6 +63,7 @@ export default withAuth(
       ProductImage,
       CartItem,
     }),
+    extendGraphqlSchema,
     ui: {
       // Show UI to only those who pass this test
       isAccessAllowed: ({ session }) => !!session?.data,
