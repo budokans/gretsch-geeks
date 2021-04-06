@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 
 const ADD_TO_CART_MUTATION = gql`
@@ -15,8 +16,17 @@ export default function AddToCart({ id }) {
   });
 
   return (
-    <button type="button" onClick={addToCart}>
-      Add to Cart 🛒
+    <button
+      type="button"
+      onClick={addToCart}
+      disabled={loading}
+      aria-disabled={loading}
+    >
+      Add{loading && 'ing'} to Cart 🛒
     </button>
   );
 }
+
+AddToCart.propTypes = {
+  id: PropTypes.string.isRequired,
+};
