@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useEffect, useRef } from 'react';
+import { useCartContext } from '../lib/cartState';
 
 const Dot = styled.div`
   background: var(--red);
@@ -38,6 +40,18 @@ const AnimationStyles = styled.span`
 `;
 
 export default function CartCount({ count }) {
+  const { openCart } = useCartContext();
+
+  const initialRender = useRef(true);
+
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      openCart();
+    }
+  }, [count]);
+
   return (
     <AnimationStyles>
       <TransitionGroup>
