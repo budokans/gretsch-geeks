@@ -1,7 +1,37 @@
+import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
+import gql from 'graphql-tag';
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown';
 
+const SEARCH_PRODUCTS_QUERY = gql`
+  query SEARCH_PRODUCTS_QUERY($searchTerm: String!) {
+    searchProducts: allProducts(
+      where: {
+        OR: [
+          { name_contains_i: $searchTerm }
+          { description_contains_i: $searchTerm }
+        ]
+      }
+    ) {
+      id
+      name
+      description
+      photo {
+        image {
+          publicUrlTransformed
+        }
+        altText
+      }
+    }
+  }
+`;
+
 export default function Search() {
+  const [
+    searchProducts,
+    { data, error, loading },
+  ] = useLazyQuery(SEARCH_PRODUCTS_QUERY, { fetchPolicy: 'no-cache' });
+
   resetIdCounter();
   const { getMenuProps, getInputProps, getComboboxProps } = useCombobox({
     items: [],
