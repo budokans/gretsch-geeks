@@ -18,6 +18,7 @@ export const ALL_PRODUCTS_QUERY = gql`
         image {
           publicUrlTransformed
         }
+        altText
       }
     }
   }
