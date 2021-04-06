@@ -6,6 +6,7 @@ import { useUser } from './User';
 import formatMoney from '../lib/formatMoney';
 import calcTotalPrice from '../lib/calcTotalPrice';
 import { useCartContext } from '../lib/cartState';
+import RemoveFromCart from './RemoveFromCart';
 
 export default function Cart() {
   const { cartOpen, toggleCartOpen } = useCartContext();
@@ -52,6 +53,7 @@ Cart.Item = function CartItem({ cartItem }) {
           {`${formatMoney(product.price)} )`}
         </em>
       </p>
+      <RemoveFromCart id={cartItem.id} />
     </Item>
   );
 };

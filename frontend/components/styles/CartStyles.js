@@ -44,26 +44,48 @@ export const Container = styled.div`
   }
 `;
 
+export const Button = styled.button`
+  font-size: 2.5rem;
+  background: none;
+  border: 0;
+  &:hover {
+    color: var(--red);
+  }
+  &:focus {
+    outline-color: transparent;
+  }
+`;
+
 export const Item = styled.li`
   padding: 1rem 0;
   border-bottom: 1px solid var(--lightGrey);
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
-    'image product-name'
-    'image price';
+    'image product-name button'
+    'image price price';
+
   img {
     grid-area: image;
     margin-right: 1rem;
   }
+
   h3 {
     grid-area: product-name;
   }
+
   p {
     grid-area: price;
-    align-self: end;
+    align-self: start;
   }
+
+  Button {
+    grid-area: button;
+    align-self: start;
+    line-height: 1;
+  }
+
   h3,
   p {
     margin: 0 1rem 0 0;
