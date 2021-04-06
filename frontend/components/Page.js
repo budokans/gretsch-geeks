@@ -40,6 +40,7 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
     color: var(--black);
+    cursor: pointer;
   }
 
   a:hover {
@@ -48,6 +49,7 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     font-family: 'Radnika Next', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    cursor: pointer;
   }
 `;
 

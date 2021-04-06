@@ -35,6 +35,9 @@ const ItemStyles = styled.div`
     a {
       text-align: center;
     }
+    a:hover {
+      text-decoration: none;
+    }
   }
 `;
 
