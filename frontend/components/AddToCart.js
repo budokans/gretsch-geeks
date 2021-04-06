@@ -14,5 +14,9 @@ export default function AddToCart({ id }) {
     variables: { id },
   });
 
-  return <button type="button">Add to Cart 🛒</button>;
+  return (
+    <button type="button" onClick={addToCart}>
+      Add to Cart 🛒
+    </button>
+  );
 }
