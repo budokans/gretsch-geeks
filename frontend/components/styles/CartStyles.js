@@ -18,11 +18,13 @@ export const Container = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   ${(props) => props.open && `transform: translateX(0);`};
+
   header {
     border-bottom: 5px solid var(--black);
     margin-bottom: 2rem;
     padding-bottom: 2rem;
   }
+
   footer {
     border-top: 10px double var(--black);
     margin-top: 2rem;
@@ -32,10 +34,12 @@ export const Container = styled.div`
     align-items: center;
     font-size: 3rem;
     font-weight: 900;
+
     p {
       margin: 0;
     }
   }
+
   ul {
     margin: 0;
     padding: 0;
@@ -45,7 +49,7 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-  font-size: 2.5rem;
+  font-size: 2rem;
   background: none;
   border: 0;
   &:hover {

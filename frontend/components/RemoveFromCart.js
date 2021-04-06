@@ -1,12 +1,29 @@
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Button } from './styles/CartStyles';
 
-// const REMOVE_FROM_CART_MUTATION = gql``;
+const REMOVE_FROM_CART_MUTATION = gql`
+  mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
+    deleteCartItem(id: $id) {
+      id
+    }
+  }
+`;
 
 export default function RemoveFromCart({ id }) {
+  const [deleteCartItem, { loading }] = useMutation(REMOVE_FROM_CART_MUTATION, {
+    variables: { id },
+  });
+
   return (
-    <Button type="button" title="Remove this item from cart">
+    <Button
+      type="button"
+      title="Remove this item from cart"
+      disabled={loading}
+      aria-disabled={loading}
+      onClick={deleteCartItem}
+    >
       x
     </Button>
   );
