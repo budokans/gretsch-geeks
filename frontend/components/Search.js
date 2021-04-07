@@ -34,6 +34,7 @@ export default function Search() {
   ] = useLazyQuery(SEARCH_PRODUCTS_QUERY, { fetchPolicy: 'no-cache' });
 
   const debouncedSearchProducts = debounce(searchProducts, 350);
+  const items = data?.searchProducts || [];
 
   // Ensure aria-controls prop matches on both server and client
   resetIdCounter();
@@ -62,10 +63,9 @@ export default function Search() {
         />
       </div>
       <DropDown {...getMenuProps()}>
-        <DropDownItem>1</DropDownItem>
-        <DropDownItem>2</DropDownItem>
-        <DropDownItem>3</DropDownItem>
-        <DropDownItem>4</DropDownItem>
+        {items.map((item) => (
+          <DropDownItem key={item.id}>{item.name}</DropDownItem>
+        ))}
       </DropDown>
     </SearchStyles>
   );
