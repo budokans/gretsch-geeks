@@ -49,8 +49,7 @@ export default function Search() {
     inputValue,
   } = useCombobox({
     items,
-    onInputValueChange({ inputValue }) {
-      console.log('Input value changed.');
+    onInputValueChange() {
       debouncedSearchProducts({ variables: { searchTerm: inputValue } });
     },
     onSelectedItemChange() {
@@ -80,7 +79,7 @@ export default function Search() {
             >
               <img
                 src={item.photo.image.publicUrlTransformed}
-                altText={item.photo.altText}
+                alttext={item.photo.altText}
                 width="50"
               />
               {item.name}
