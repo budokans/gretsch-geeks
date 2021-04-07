@@ -17,6 +17,10 @@ const CheckoutFormStyles = styled.form`
   padding: 1rem;
   display: grid;
   grid-gap: 1rem;
+
+  p {
+    font-size: 12px;
+  }
 `;
 
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
@@ -38,8 +42,8 @@ function CheckoutForm() {
       type: 'card',
       card: elements.getElement(CardElement),
     });
-    console.log(paymentMethod);
     // 4. Handle any Stripe errors
+    if (error) setError(error);
     // 5. Send token to Keystone server via custom mutation
     // 6. Route to the order page
     // 7. Close cart
@@ -48,6 +52,7 @@ function CheckoutForm() {
 
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
+      {error && <p>{error.message}</p>}
       <CardElement />
       <SickButton type="submit">Pay Now</SickButton>
     </CheckoutFormStyles>
