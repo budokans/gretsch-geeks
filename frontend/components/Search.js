@@ -39,8 +39,14 @@ export default function Search() {
   // Ensure aria-controls prop matches on both server and client
   resetIdCounter();
 
-  const { getMenuProps, getInputProps, getComboboxProps } = useCombobox({
-    items: [],
+  const {
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    getItemProps,
+    highlightedIndex,
+  } = useCombobox({
+    items,
     onInputValueChange({ inputValue }) {
       console.log('Input value changed.');
       debouncedSearchProducts({ variables: { searchTerm: inputValue } });
@@ -63,8 +69,12 @@ export default function Search() {
         />
       </div>
       <DropDown {...getMenuProps()}>
-        {items.map((item) => (
-          <DropDownItem key={item.id}>
+        {items.map((item, index) => (
+          <DropDownItem
+            key={item.id}
+            {...getItemProps({ item })}
+            highlighted={index === highlightedIndex}
+          >
             <img
               src={item.photo.image.publicUrlTransformed}
               altText={item.photo.altText}
