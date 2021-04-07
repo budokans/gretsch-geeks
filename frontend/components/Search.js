@@ -64,7 +64,14 @@ export default function Search() {
       </div>
       <DropDown {...getMenuProps()}>
         {items.map((item) => (
-          <DropDownItem key={item.id}>{item.name}</DropDownItem>
+          <DropDownItem key={item.id}>
+            <img
+              src={item.photo.image.publicUrlTransformed}
+              altText={item.photo.altText}
+              width="50"
+            />
+            {item.name}
+          </DropDownItem>
         ))}
       </DropDown>
     </SearchStyles>
