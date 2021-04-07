@@ -45,6 +45,8 @@ export default function Search() {
     getComboboxProps,
     getItemProps,
     highlightedIndex,
+    isOpen,
+    inputValue,
   } = useCombobox({
     items,
     onInputValueChange({ inputValue }) {
@@ -69,20 +71,24 @@ export default function Search() {
         />
       </div>
       <DropDown {...getMenuProps()}>
-        {items.map((item, index) => (
-          <DropDownItem
-            key={item.id}
-            {...getItemProps({ item })}
-            highlighted={index === highlightedIndex}
-          >
-            <img
-              src={item.photo.image.publicUrlTransformed}
-              altText={item.photo.altText}
-              width="50"
-            />
-            {item.name}
-          </DropDownItem>
-        ))}
+        {isOpen &&
+          items.map((item, index) => (
+            <DropDownItem
+              key={item.id}
+              {...getItemProps({ item })}
+              highlighted={index === highlightedIndex}
+            >
+              <img
+                src={item.photo.image.publicUrlTransformed}
+                altText={item.photo.altText}
+                width="50"
+              />
+              {item.name}
+            </DropDownItem>
+          ))}
+        {isOpen && !items.length && !loading && (
+          <DropDownItem>Sorry, no items found for {inputValue}</DropDownItem>
+        )}
       </DropDown>
     </SearchStyles>
   );
