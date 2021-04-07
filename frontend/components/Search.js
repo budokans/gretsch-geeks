@@ -1,7 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
 import gql from 'graphql-tag';
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 import { useRouter } from 'next/router';
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown';
 
@@ -36,7 +36,7 @@ export default function Search() {
     { data, error, loading },
   ] = useLazyQuery(SEARCH_PRODUCTS_QUERY, { fetchPolicy: 'no-cache' });
 
-  const debouncedSearchProducts = debounce(searchProducts, 350);
+  const throttleSearchProducts = throttle(searchProducts, 500);
   const items = data?.searchProducts || [];
 
   // Ensure aria-controls prop matches on both server and client
@@ -53,7 +53,7 @@ export default function Search() {
   } = useCombobox({
     items,
     onInputValueChange() {
-      debouncedSearchProducts({ variables: { searchTerm: inputValue } });
+      throttleSearchProducts({ variables: { searchTerm: inputValue } });
     },
     onSelectedItemChange({ selectedItem }) {
       router.push({
@@ -69,7 +69,7 @@ export default function Search() {
         <input
           {...getInputProps({
             type: 'search',
-            placeholder: 'Search for items',
+            placeholder: 'Search for an item',
             id: 'search',
             className: loading ? 'loading' : '',
           })}
@@ -77,6 +77,7 @@ export default function Search() {
       </div>
       <DropDown {...getMenuProps()}>
         {isOpen &&
+          inputValue.length > 0 &&
           items.map((item, index) => (
             <DropDownItem
               key={item.id}
@@ -85,13 +86,13 @@ export default function Search() {
             >
               <img
                 src={item.photo.image.publicUrlTransformed}
-                alttext={item.photo.altText}
+                alt={item.photo.altText}
                 width="50"
               />
               {item.name}
             </DropDownItem>
           ))}
-        {isOpen && !items.length && !loading && (
+        {isOpen && !items.length && !loading && inputValue.length > 0 && (
           <DropDownItem>Sorry, no items found for {inputValue}</DropDownItem>
         )}
       </DropDown>
