@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
-import { CardElement, Elements, useStripe } from '@stripe/react-stripe-js';
+import {
+  CardElement,
+  Elements,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
 import { useState } from 'react';
+import nProgress from 'nprogress';
 import SickButton from './styles/SickButton';
 
 const CheckoutFormStyles = styled.form`
@@ -19,12 +25,20 @@ function CheckoutForm() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
+  const elements = useElements();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     // 1. Stop the form from submitting and turn the loader on
     e.preventDefault();
+    setLoading(true);
     // 2. Start the page transition
+    nProgress.start();
     // 3. Create the payment method via Stripe (token comes back here if success)
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+    });
+    console.log(paymentMethod);
     // 4. Handle any Stripe errors
     // 5. Send token to Keystone server via custom mutation
     // 6. Route to the order page
