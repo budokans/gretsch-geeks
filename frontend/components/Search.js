@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
 import gql from 'graphql-tag';
+import { debounce } from 'lodash';
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown';
 
 const SEARCH_PRODUCTS_QUERY = gql`
@@ -32,11 +33,16 @@ export default function Search() {
     { data, error, loading },
   ] = useLazyQuery(SEARCH_PRODUCTS_QUERY, { fetchPolicy: 'no-cache' });
 
+  const debouncedSearchProducts = debounce(searchProducts, 350);
+
+  // Ensure aria-controls prop matches on both server and client
   resetIdCounter();
+
   const { getMenuProps, getInputProps, getComboboxProps } = useCombobox({
     items: [],
-    onInputValueChange() {
+    onInputValueChange({ inputValue }) {
       console.log('Input value changed.');
+      debouncedSearchProducts({ variables: { searchTerm: inputValue } });
     },
     onSelectedItemChange() {
       console.log('Selected item changed.');
