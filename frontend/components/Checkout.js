@@ -23,8 +23,6 @@ const CheckoutFormStyles = styled.form`
   }
 `;
 
-const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-
 function CheckoutForm() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -60,8 +58,12 @@ function CheckoutForm() {
 }
 
 export default function Checkout() {
+  const [stripePromise, setStripePromise] = useState(() =>
+    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
+  );
+
   return (
-    <Elements stripe={stripeLib}>
+    <Elements stripe={stripePromise}>
       <CheckoutForm />
     </Elements>
   );
