@@ -2,6 +2,7 @@ import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
 import gql from 'graphql-tag';
 import { debounce } from 'lodash';
+import { useRouter } from 'next/router';
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown';
 
 const SEARCH_PRODUCTS_QUERY = gql`
@@ -28,6 +29,8 @@ const SEARCH_PRODUCTS_QUERY = gql`
 `;
 
 export default function Search() {
+  const router = useRouter();
+
   const [
     searchProducts,
     { data, error, loading },
@@ -52,9 +55,12 @@ export default function Search() {
     onInputValueChange() {
       debouncedSearchProducts({ variables: { searchTerm: inputValue } });
     },
-    onSelectedItemChange() {
-      console.log('Selected item changed.');
+    onSelectedItemChange({ selectedItem }) {
+      router.push({
+        pathname: `/product/${selectedItem.id}`,
+      });
     },
+    itemToString: (item) => item?.name || '',
   });
 
   return (
@@ -74,7 +80,7 @@ export default function Search() {
           items.map((item, index) => (
             <DropDownItem
               key={item.id}
-              {...getItemProps({ item })}
+              {...getItemProps({ item, index })}
               highlighted={index === highlightedIndex}
             >
               <img
