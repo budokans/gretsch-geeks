@@ -58,7 +58,7 @@ export default function Search() {
             type: 'search',
             placeholder: 'Search for items',
             id: 'search',
-            className: 'loading',
+            className: loading ? 'loading' : '',
           })}
         />
       </div>
