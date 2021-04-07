@@ -7,6 +7,7 @@ import formatMoney from '../lib/formatMoney';
 import calcTotalPrice from '../lib/calcTotalPrice';
 import { useCartContext } from '../lib/cartState';
 import RemoveFromCart from './RemoveFromCart';
+import Checkout from './Checkout';
 
 export default function Cart() {
   const { cartOpen, toggleCartOpen } = useCartContext();
@@ -29,6 +30,7 @@ export default function Cart() {
       </ul>
       <footer>
         <p>{formatMoney(calcTotalPrice(me.cart))}</p>
+        <Checkout />
       </footer>
     </Container>
   );
