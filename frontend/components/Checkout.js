@@ -33,19 +33,26 @@ function CheckoutForm() {
     // 1. Stop the form from submitting and turn the loader on
     e.preventDefault();
     setLoading(true);
+
     // 2. Start the page transition
     nProgress.start();
+
     // 3. Create the payment method via Stripe (token comes back here if success)
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement),
     });
+
     // 4. Handle any Stripe errors
     if (error) setError(error);
+
     // 5. Send token to Keystone server via custom mutation
     // 6. Route to the order page
     // 7. Close cart
+
     // 8. Turn off loader
+    setLoading(false);
+    nProgress.done();
   }
 
   return (
