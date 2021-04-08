@@ -16,6 +16,12 @@ export const User = list({
         itemView: { fieldMode: 'read' },
       },
     }),
-    // TO DO: add roles, cart, orders
+    orders: relationship({ ref: 'Order.user' }),
+    // TO DO: add roles
+  },
+  ui: {
+    listView: {
+      initialColumns: ['name', 'email', 'cart', 'orders'],
+    },
   },
 });
