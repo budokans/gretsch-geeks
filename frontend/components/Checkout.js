@@ -27,8 +27,8 @@ const CheckoutFormStyles = styled.form`
   }
 `;
 
-const CREATE_CHARGE_MUTATION = gql`
-  mutation CREATE_CHARGE_MUTATION($token: String!) {
+const CREATE_ORDER_MUTATION = gql`
+  mutation CREATE_ORDER_MUTATION($token: String!) {
     checkout(token: $token) {
       id
       charge
@@ -43,17 +43,15 @@ const CREATE_CHARGE_MUTATION = gql`
 
 function CheckoutForm() {
   const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { closeCart } = useCartContext();
   const stripe = useStripe();
   const elements = useElements();
-  const [checkout, { error: GqlError }] = useMutation(CREATE_CHARGE_MUTATION);
+  const [checkout, { error: GqlError }] = useMutation(CREATE_ORDER_MUTATION);
 
   async function handleSubmit(e) {
     // 1. Stop the form from submitting and turn the loader on
     e.preventDefault();
-    setLoading(true);
 
     // 2. Start the page transition
     nProgress.start();
@@ -63,8 +61,6 @@ function CheckoutForm() {
       type: 'card',
       card: elements.getElement(CardElement),
     });
-
-    console.log(paymentMethod);
 
     // 4. Handle any Stripe errors
     if (error) {
@@ -90,7 +86,6 @@ function CheckoutForm() {
     closeCart();
 
     // 8. Turn off loader
-    setLoading(false);
     nProgress.done();
   }
 
