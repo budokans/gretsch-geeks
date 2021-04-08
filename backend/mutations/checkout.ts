@@ -3,6 +3,7 @@ import {
   CartItemCreateInput,
   OrderCreateInput,
 } from '../.keystone/schema-types';
+import { stripeConfig } from '../lib/stripe';
 
 const graphql = String.raw;
 
@@ -44,6 +45,7 @@ export default async function checkout(
   });
 
   console.dir(user, { depth: null });
+
   // 3. Calc total price
   const cartItems = user.cart.filter((cartItem) => cartItem.product);
   const totalPrice = cartItems.reduce(function (
@@ -56,7 +58,19 @@ export default async function checkout(
 
   console.log(totalPrice);
 
-  // 4. Create the payment
+  // 4. Create the charge with Stripe
+  const charge = await stripeConfig.paymentIntents
+    .create({
+      amount: totalPrice,
+      currency: 'USD',
+      confirm: true,
+      payment_method: token,
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Error(err.message);
+    });
+
   // 5. Convert CartItems to OrderItems
   // 6. Create and return the Order
 }
