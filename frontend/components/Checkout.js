@@ -43,6 +43,7 @@ const CREATE_ORDER_MUTATION = gql`
 
 function CheckoutForm() {
   const [error, setError] = useState();
+  const [loading, setLoading] = useState();
   const router = useRouter();
   const { closeCart } = useCartContext();
   const stripe = useStripe();
@@ -52,6 +53,7 @@ function CheckoutForm() {
   async function handleSubmit(e) {
     // 1. Stop the form from submitting and turn the loader on
     e.preventDefault();
+    setLoading(true);
 
     // 2. Start the page transition
     nProgress.start();
@@ -77,7 +79,6 @@ function CheckoutForm() {
     });
 
     console.log('Payment success');
-    console.log(order);
 
     // 6. Route to the order page
     router.push({ pathname: `/order/${order.data.checkout.id}` });
@@ -86,6 +87,7 @@ function CheckoutForm() {
     closeCart();
 
     // 8. Turn off loader
+    setLoading(false);
     nProgress.done();
   }
 
@@ -95,7 +97,9 @@ function CheckoutForm() {
       {GqlError && <p>{GqlError.message}</p>}
 
       <CardElement />
-      <SickButton type="submit">Pay Now</SickButton>
+      <SickButton type="submit" disabled={loading} aria-disabled={loading}>
+        Pay Now
+      </SickButton>
     </CheckoutFormStyles>
   );
 }
