@@ -15,8 +15,14 @@ export function CartContextProvider({ children }) {
     setCartOpen(true);
   }
 
+  function closeCart() {
+    setCartOpen(false);
+  }
+
   return (
-    <LocalStateProvider value={{ cartOpen, toggleCartOpen, openCart }}>
+    <LocalStateProvider
+      value={{ cartOpen, toggleCartOpen, openCart, closeCart }}
+    >
       {children}
     </LocalStateProvider>
   );

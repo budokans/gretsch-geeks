@@ -10,6 +10,8 @@ import { useState } from 'react';
 import nProgress from 'nprogress';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
+import { useCartContext } from '../lib/cartState';
 import SickButton from './styles/SickButton';
 
 const CheckoutFormStyles = styled.form`
@@ -42,6 +44,8 @@ const CREATE_CHARGE_MUTATION = gql`
 function CheckoutForm() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { closeCart } = useCartContext();
   const stripe = useStripe();
   const elements = useElements();
   const [checkout, { error: GqlError }] = useMutation(CREATE_CHARGE_MUTATION);
@@ -80,7 +84,10 @@ function CheckoutForm() {
     console.log(order);
 
     // 6. Route to the order page
+    router.push({ pathname: '/order', query: { id: order.data.checkout.id } });
+
     // 7. Close cart
+    closeCart();
 
     // 8. Turn off loader
     setLoading(false);
