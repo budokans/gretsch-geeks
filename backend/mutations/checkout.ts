@@ -1,5 +1,10 @@
 import { KeystoneContext } from '@keystone-next/types';
-import { OrderCreateInput } from '../.keystone/schema-types';
+import {
+  CartItemCreateInput,
+  OrderCreateInput,
+} from '../.keystone/schema-types';
+
+const graphql = String.raw;
 
 export default async function checkout(
   root: any,
@@ -14,16 +19,42 @@ export default async function checkout(
   // 2. Query the user
   const user = await context.lists.User.findOne({
     where: { id: userId },
-    resolveFields: `
+    resolveFields: graphql`
       id
       name
       email
-      cart
+      cart {
+        id
+        quantity
+        product {
+          id
+          name
+          price
+          description
+          photo {
+            id
+            image {
+              publicUrlTransformed
+            }
+            altText
+          }
+        }
+      }
     `,
   });
 
-  console.log(user);
+  console.dir(user, { depth: null });
   // 3. Calc total price
+  const cartItems = user.cart.filter((cartItem) => cartItem.product);
+  const totalPrice = cartItems.reduce(function (
+    tally: number,
+    cartItem: CartItemCreateInput
+  ) {
+    return tally + cartItem.quantity * cartItem.product.price;
+  },
+  0);
+
+  console.log(totalPrice);
 
   // 4. Create the payment
   // 5. Convert CartItems to OrderItems
