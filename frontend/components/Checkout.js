@@ -13,6 +13,7 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
 import { useCartContext } from '../lib/cartState';
 import SickButton from './styles/SickButton';
+import { CURRENT_USER_QUERY } from './User';
 
 const CheckoutFormStyles = styled.form`
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.04);
@@ -48,7 +49,9 @@ function CheckoutForm() {
   const { closeCart } = useCartContext();
   const stripe = useStripe();
   const elements = useElements();
-  const [checkout, { error: GqlError }] = useMutation(CREATE_ORDER_MUTATION);
+  const [checkout, { error: GqlError }] = useMutation(CREATE_ORDER_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
 
   async function handleSubmit(e) {
     // 1. Stop the form from submitting and turn the loader on

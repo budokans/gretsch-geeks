@@ -48,7 +48,7 @@ export default function CartCount({ count }) {
   useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
-    } else {
+    } else if (count > 0) {
       openCart();
     }
   }, [count]);
