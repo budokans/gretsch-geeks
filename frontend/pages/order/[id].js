@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import Order from '../../components/Order';
 
-export default function OrderPage({ query }) {
-  console.log(query);
-
+export default function SingleOrderPage({ query }) {
   return <Order id={query.id} />;
 }
 
-OrderPage.propTypes = {
+SingleOrderPage.propTypes = {
   query: PropTypes.object.isRequired,
 };

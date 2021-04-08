@@ -81,8 +81,6 @@ function CheckoutForm() {
       },
     });
 
-    console.log('Payment success');
-
     // 6. Route to the order page
     router.push({ pathname: `/order/${order.data.checkout.id}` });
 
@@ -92,6 +90,9 @@ function CheckoutForm() {
     // 8. Turn off loader
     setLoading(false);
     nProgress.done();
+
+    // 9. Clear CardElement
+    elements.getElement(CardElement).clear();
   }
 
   return (
