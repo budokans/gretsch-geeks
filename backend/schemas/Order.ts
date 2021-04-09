@@ -3,7 +3,12 @@ import { integer, relationship, text, virtual } from '@keystone-next/fields';
 import formatMoney from '../lib/formatMoney';
 
 export const Order = list({
-  // TO DO: Access
+  access: {
+    create: isSignedIn,
+    read: rules.canOrder,
+    update: () => false,
+    delete: () => false,
+  },
   fields: {
     label: virtual({
       graphQLReturnType: 'String',
