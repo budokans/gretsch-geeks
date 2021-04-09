@@ -33,4 +33,10 @@ export const rules = {
     }
     return { status: 'AVAILABLE' };
   },
+  canOrder({ session }: ListAccessArgs) {
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
+    return { user: { id: session.itemId } };
+  },
 };
