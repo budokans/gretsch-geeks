@@ -20,6 +20,10 @@ export const permissions = {
 
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
+    // If not signed in, no way buddy.
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     // Does the current user have this permission?
     if (permissions.canManageProducts({ session })) {
       return true;
@@ -28,18 +32,27 @@ export const rules = {
     return { user: { id: session.itemId } };
   },
   canReadProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     if (permissions.canManageProducts({ session })) {
       return true;
     }
     return { status: 'AVAILABLE' };
   },
   canOrder({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     if (permissions.canManageCart({ session })) {
       return true;
     }
     return { user: { id: session.itemId } };
   },
   canManageOrderItems({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     if (permissions.canManageCart({ session })) {
       return true;
     }
