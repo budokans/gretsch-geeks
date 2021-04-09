@@ -24,10 +24,12 @@ export const rules = {
     if (!isSignedIn({ session })) {
       return false;
     }
+
     // Does the current user have this permission?
     if (permissions.canManageProducts({ session })) {
       return true;
     }
+
     // If not, do they own this item?
     return { user: { id: session.itemId } };
   },
@@ -35,6 +37,7 @@ export const rules = {
     if (!isSignedIn({ session })) {
       return false;
     }
+
     if (permissions.canManageProducts({ session })) {
       return true;
     }
@@ -44,6 +47,7 @@ export const rules = {
     if (!isSignedIn({ session })) {
       return false;
     }
+
     if (permissions.canManageCart({ session })) {
       return true;
     }
@@ -53,9 +57,20 @@ export const rules = {
     if (!isSignedIn({ session })) {
       return false;
     }
+
     if (permissions.canManageCart({ session })) {
       return true;
     }
     return { order: { user: { id: session.itemId } } };
+  },
+  canManageUsers({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+
+    if (permissions.canManageUsers({ session })) {
+      return true;
+    }
+    return { id: session.itemId };
   },
 };
