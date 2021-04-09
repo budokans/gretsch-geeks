@@ -17,3 +17,14 @@ const generatedPermissions = Object.fromEntries(
 export const permissions = {
   ...generatedPermissions,
 };
+
+export const rules = {
+  canManageProducts({ session }: ListAccessArgs) {
+    // Does the current user have this permission?
+    if (permissions.canManageProducts({ session })) {
+      return true;
+    }
+    // If not, do they own this item?
+    return { user: { id: session.itemId } };
+  },
+};
