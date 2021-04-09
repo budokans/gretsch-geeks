@@ -16,7 +16,11 @@ export const User = list({
     }),
     orders: relationship({ ref: 'Order.user' }),
     role: relationship({
-      ref: 'Role.assignedTo', // TO DO: Add access control
+      ref: 'Role.assignedTo',
+    }),
+    products: relationship({
+      ref: 'Product.user',
+      many: true,
     }),
   },
   ui: {
