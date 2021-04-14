@@ -54,7 +54,11 @@ export default function Order({ id }) {
       </p>
       <p>
         <span>Item count:</span>
-        <span>{order.items.length}</span>
+        <span>
+          {order.items
+            .map((item) => item.quantity)
+            .reduce((tally, quantity) => tally + quantity)}
+        </span>
       </p>
       <p>
         <span>Order total:</span>
