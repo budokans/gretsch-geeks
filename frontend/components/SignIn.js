@@ -47,7 +47,8 @@ export default function SignIn() {
     const res = await signin();
     if (
       res.data.authenticateUserWithPassword.__typename ===
-      'UserAuthenticationWithPasswordSuccess'
+        'UserAuthenticationWithPasswordSuccess' &&
+      Router.route === '/signin'
     ) {
       Router.push(`/`);
     }
