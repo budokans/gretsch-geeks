@@ -12,7 +12,7 @@ const ADD_TO_CART_MUTATION = gql`
   }
 `;
 
-export default function AddToCart({ id, isLoggedIn }) {
+export default function AddToCart({ id, isSignedIn }) {
   const [addToCart, { loading }] = useMutation(ADD_TO_CART_MUTATION, {
     variables: { id },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
@@ -20,7 +20,7 @@ export default function AddToCart({ id, isLoggedIn }) {
 
   function handleClick(e) {
     e.preventDefault();
-    if (isLoggedIn) {
+    if (isSignedIn) {
       addToCart();
     } else {
       Router.push('/signin');
@@ -41,4 +41,5 @@ export default function AddToCart({ id, isLoggedIn }) {
 
 AddToCart.propTypes = {
   id: PropTypes.string.isRequired,
+  isSignedIn: PropTypes.bool.isRequired,
 };
