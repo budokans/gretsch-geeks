@@ -60,7 +60,7 @@ export default function UpdateProduct({ id }) {
             description: inputs.description,
             price: inputs.price,
           },
-        }).catch(console.error.message);
+        }).catch((err) => console.error(err.message));
       }}
     >
       <DisplayError error={error || updateError} />
