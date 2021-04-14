@@ -8,7 +8,7 @@ import DisplayError from './ErrorMessage';
 import OrderItemStyles from './styles/OrderItemStyles';
 import { useUser } from './User';
 
-const USER_ORDERS_QUERY = gql`
+export const USER_ORDERS_QUERY = gql`
   query USER_ORDERS_QUERY($id: ID!) {
     allOrders(where: { user: { id: $id } }) {
       id
