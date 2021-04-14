@@ -7,7 +7,10 @@ import formatMoney from '../lib/formatMoney';
 import DeleteProduct from './DeleteProduct';
 import AddToCart from './AddToCart';
 
-export default function Product({ product }) {
+export default function Product({ product, user }) {
+  const currentUserId = user?.id;
+  const productOwnerId = product.user?.id;
+
   return (
     <ItemStyles>
       <img
@@ -20,11 +23,16 @@ export default function Product({ product }) {
       <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
       <div className="buttonList">
-        <Link href={{ pathname: '/update', query: { id: product.id } }}>
-          Edit
-        </Link>
+        {user && currentUserId === productOwnerId && (
+          <Link href={{ pathname: '/update', query: { id: product.id } }}>
+            Edit
+          </Link>
+        )}
+
         <AddToCart id={product.id} />
-        <DeleteProduct id={product.id}>Delete</DeleteProduct>
+        {user && currentUserId === productOwnerId && (
+          <DeleteProduct id={product.id}>Delete</DeleteProduct>
+        )}
       </div>
     </ItemStyles>
   );
@@ -32,4 +40,5 @@ export default function Product({ product }) {
 
 Product.propTypes = {
   product: PropTypes.object,
+  user: PropTypes.object,
 };

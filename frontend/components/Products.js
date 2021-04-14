@@ -20,6 +20,9 @@ export const ALL_PRODUCTS_QUERY = gql`
         }
         altText
       }
+      user {
+        id
+      }
     }
   }
 `;
@@ -30,7 +33,7 @@ const ProductsListStyles = styled.div`
   grid-gap: 60px;
 `;
 
-export default function Products({ pageNum }) {
+export default function ProductsSignedIn({ pageNum, user }) {
   const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY, {
     variables: { skip: pageNum * perPage - perPage, first: perPage },
   });
@@ -49,12 +52,13 @@ export default function Products({ pageNum }) {
   return (
     <ProductsListStyles>
       {data?.allProducts.map((product) => (
-        <Product key={product.id} product={product} />
+        <Product key={product.id} product={product} user={user} />
       ))}
     </ProductsListStyles>
   );
 }
 
-Products.propTypes = {
+ProductsSignedIn.propTypes = {
   pageNum: PropTypes.number.isRequired,
+  user: PropTypes.object,
 };
