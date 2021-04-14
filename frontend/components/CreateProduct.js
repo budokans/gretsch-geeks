@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import Router from 'next/router';
 import gql from 'graphql-tag';
+import Head from 'next/head';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
@@ -44,65 +45,70 @@ export default function CreateProduct() {
   );
 
   return (
-    <Form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        const res = await createProduct();
-        clearForm();
-        Router.push(`/product/${res.data.createProduct.id}`);
-      }}
-    >
-      <DisplayError error={error} />
-      <fieldset disabled={loading} aria-busy={loading}>
-        <label htmlFor="image">
-          Image
-          <input
-            required
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="name">
-          Name
-          <input
-            required
-            type="text"
-            id="name"
-            name="name"
-            placeholder="name"
-            value={inputs.name}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="price">
-          Price
-          <input
-            required
-            type="number"
-            min="500"
-            max="2147483647"
-            id="price"
-            name="price"
-            placeholder="Price"
-            value={inputs.price}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="description">
-          Description
-          <textarea
-            id="description"
-            name="description"
-            placeholder="Description"
-            value={inputs.description}
-            onChange={handleChange}
-          />
-        </label>
+    <>
+      <Head>
+        <title>Sick Fits | Sell an Item</title>
+      </Head>
+      <Form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const res = await createProduct();
+          clearForm();
+          Router.push(`/product/${res.data.createProduct.id}`);
+        }}
+      >
+        <DisplayError error={error} />
+        <fieldset disabled={loading} aria-busy={loading}>
+          <label htmlFor="image">
+            Image
+            <input
+              required
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="name">
+            Name
+            <input
+              required
+              type="text"
+              id="name"
+              name="name"
+              placeholder="name"
+              value={inputs.name}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="price">
+            Price
+            <input
+              required
+              type="number"
+              min="500"
+              max="2147483647"
+              id="price"
+              name="price"
+              placeholder="Price"
+              value={inputs.price}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="description">
+            Description
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={inputs.description}
+              onChange={handleChange}
+            />
+          </label>
 
-        <button type="submit">+ Add Product</button>
-      </fieldset>
-    </Form>
+          <button type="submit">+ Add Product</button>
+        </fieldset>
+      </Form>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Head from 'next/head';
 import styled from 'styled-components';
 import RequestReset from '../components/RequestReset';
 import Reset from '../components/Reset';
@@ -11,6 +12,9 @@ const Container = styled.div`
 export default function ResetPage({ query }) {
   return (
     <Container>
+      <Head>
+        <title>Sick Fits | Password Reset</title>
+      </Head>
       {!query?.token ? (
         <>
           <p>Sorry, your token has expired or was invalid. Please try again.</p>

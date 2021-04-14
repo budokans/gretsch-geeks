@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
+import Head from 'next/head';
 import { useMutation, useQuery } from '@apollo/client';
 import isEmpty from 'lodash/isEmpty';
 import useForm from '../lib/useForm';
@@ -50,60 +51,65 @@ export default function UpdateProduct({ id }) {
   if (isEmpty(inputs)) return <p>Loading...</p>;
 
   return (
-    <Form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        await updateProduct({
-          variables: {
-            id,
-            name: inputs.name,
-            description: inputs.description,
-            price: inputs.price,
-          },
-        }).catch((err) => console.error(err.message));
-      }}
-    >
-      <DisplayError error={error || updateError} />
+    <>
+      <Head>
+        <title>Sick Fits | Edit {inputs.name}</title>
+      </Head>
+      <Form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await updateProduct({
+            variables: {
+              id,
+              name: inputs.name,
+              description: inputs.description,
+              price: inputs.price,
+            },
+          }).catch((err) => console.error(err.message));
+        }}
+      >
+        <DisplayError error={error || updateError} />
 
-      <fieldset disabled={updateLoading} aria-busy={updateLoading}>
-        <label htmlFor="name">
-          Name
-          <input
-            required
-            type="text"
-            id="name"
-            name="name"
-            placeholder="name"
-            value={inputs.name}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="price">
-          Price
-          <input
-            required
-            type="number"
-            id="price"
-            name="price"
-            placeholder="Price"
-            value={inputs.price}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="description">
-          Description
-          <textarea
-            id="description"
-            name="description"
-            placeholder="Description"
-            value={inputs.description}
-            onChange={handleChange}
-          />
-        </label>
+        <fieldset disabled={updateLoading} aria-busy={updateLoading}>
+          <label htmlFor="name">
+            Name
+            <input
+              required
+              type="text"
+              id="name"
+              name="name"
+              placeholder="name"
+              value={inputs.name}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="price">
+            Price
+            <input
+              required
+              type="number"
+              id="price"
+              name="price"
+              placeholder="Price"
+              value={inputs.price}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="description">
+            Description
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={inputs.description}
+              onChange={handleChange}
+            />
+          </label>
 
-        <button type="submit">Update Product</button>
-      </fieldset>
-    </Form>
+          <button type="submit">Update Product</button>
+        </fieldset>
+      </Form>
+    </>
   );
 }
 

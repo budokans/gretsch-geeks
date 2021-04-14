@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import Head from 'next/head';
 import Router from 'next/router';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
@@ -54,41 +55,46 @@ export default function SignIn() {
   }
 
   return (
-    <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Sign into your account</h2>
+    <>
+      <Head>
+        <title>Sick Fits | Sign In</title>
+      </Head>
+      <Form method="POST" onSubmit={handleSubmit}>
+        <h2>Sign into your account</h2>
 
-      <DisplayError error={errorMessage} />
+        <DisplayError error={errorMessage} />
 
-      <fieldset disabled={loading} aria-busy={loading}>
-        <label htmlFor="email">
-          Email
-          <input
-            required
-            aria-label="Email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="Email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="name">
-          Password
-          <input
-            required
-            aria-label="Password"
-            type="password"
-            name="password"
-            autoComplete="password"
-            placeholder="Password"
-            value={inputs.password}
-            onChange={handleChange}
-          />
-        </label>
+        <fieldset disabled={loading} aria-busy={loading}>
+          <label htmlFor="email">
+            Email
+            <input
+              required
+              aria-label="Email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              placeholder="Email"
+              value={inputs.email}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="name">
+            Password
+            <input
+              required
+              aria-label="Password"
+              type="password"
+              name="password"
+              autoComplete="password"
+              placeholder="Password"
+              value={inputs.password}
+              onChange={handleChange}
+            />
+          </label>
 
-        <button type="submit">Sign in</button>
-      </fieldset>
-    </Form>
+          <button type="submit">Sign in</button>
+        </fieldset>
+      </Form>
+    </>
   );
 }

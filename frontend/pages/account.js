@@ -1,3 +1,12 @@
+import Head from 'next/head';
+
 export default function AccountPage() {
-  return <h2>Account page</h2>;
+  return (
+    <>
+      <Head>
+        <title>Sick Fits | Your Account</title>
+      </Head>
+      <h2>Account page</h2>
+    </>
+  );
 }
