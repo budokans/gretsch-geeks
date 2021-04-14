@@ -29,7 +29,7 @@ export default function Product({ product, user }) {
           </Link>
         )}
 
-        <AddToCart id={product.id} />
+        <AddToCart id={product.id} isLoggedIn={!!user} />
         {user && currentUserId === productOwnerId && (
           <DeleteProduct id={product.id}>Delete</DeleteProduct>
         )}
