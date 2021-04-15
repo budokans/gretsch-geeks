@@ -17,10 +17,23 @@ const ProductStyles = styled.div`
   grid-template-columns: 1fr 1fr;
   max-width: var(--maxWidth);
   margin: 0 auto;
-  justify-content: center;
   align-items: top;
   grid-gap: 2rem;
   box-shadow: var(--bs);
+
+  @media (max-width: 930px) {
+    width: 70%;
+    grid-template-columns: 100%;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
+  h2,
+  p {
+    margin: 0;
+  }
 
   img {
     width: 100%;
@@ -33,7 +46,13 @@ const ProductStyles = styled.div`
     flex-direction: column;
     align-items: flex-start;
 
+    @media (max-width: 930px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
     & > * {
+      width: 170px;
       margin: 0.4rem 0;
       background: white;
       border: 2px solid var(--red);
@@ -43,10 +62,20 @@ const ProductStyles = styled.div`
       font-size: 1.5rem;
       padding: 0.5rem 1rem;
       line-height: 1.3;
+
+      @media (max-width: 930px) {
+        width: 32%;
+      }
+
+      @media (max-width: 600px) {
+        font-size: 1rem;
+      }
     }
+
     a {
       text-align: center;
     }
+
     a:hover {
       text-decoration: none;
     }
