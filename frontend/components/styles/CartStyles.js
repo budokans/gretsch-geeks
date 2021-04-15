@@ -19,10 +19,21 @@ export const Container = styled.div`
   grid-template-rows: auto 1fr auto;
   ${(props) => props.open && `transform: translateX(0);`};
 
+  @media (max-width: 600px) {
+    min-width: 0;
+    width: 100%;
+  }
+
   header {
     border-bottom: 5px solid var(--black);
     margin-bottom: 2rem;
     padding-bottom: 2rem;
+
+    h3 {
+      @media (max-width: 600px) {
+        font-size: 2.5rem;
+      }
+    }
   }
 
   footer {
@@ -31,6 +42,10 @@ export const Container = styled.div`
     padding-top: 2rem;
     font-size: 3rem;
     font-weight: 900;
+
+    @media (max-width: 600px) {
+      font-size: 2rem;
+    }
 
     p {
       margin: 0;
@@ -74,11 +89,19 @@ export const Item = styled.li`
 
   h3 {
     grid-area: product-name;
+
+    @media (max-width: 600px) {
+      font-size: 1.5rem;
+    }
   }
 
   p {
     grid-area: price;
     align-self: start;
+
+    @media (max-width: 600px) {
+      font-size: 1.2rem;
+    }
   }
 
   Button {
