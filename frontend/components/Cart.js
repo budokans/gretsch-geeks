@@ -10,12 +10,12 @@ import RemoveFromCart from './RemoveFromCart';
 import Checkout from './Checkout';
 
 export default function Cart() {
-  const { cartOpen, toggleCartOpen } = useCartContext();
+  const { cartOpen, toggleCartOpen, node } = useCartContext();
   const me = useUser();
   if (!me) return null;
 
   return (
-    <Container open={cartOpen}>
+    <Container open={cartOpen} ref={node}>
       <header>
         <Supreme>{me.name}'s cart</Supreme>
         <CloseButton type="button" onClick={toggleCartOpen}>
