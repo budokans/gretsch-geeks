@@ -51,8 +51,6 @@ export default function SingleProduct({ id, isOwner, user }) {
 
   const { Product: product } = data;
 
-  console.log({ user, isOwner });
-
   return (
     <ProductStyles>
       <Head>
@@ -69,7 +67,7 @@ export default function SingleProduct({ id, isOwner, user }) {
       </div>
       <div className="button-list">
         <AddToCart id={product.id} isSignedIn={!!user} />
-        {user && isOwner && (
+        {user && !!isOwner && (
           <>
             <Link href={{ pathname: '/update', query: { id: product.id } }}>
               Edit
@@ -84,4 +82,6 @@ export default function SingleProduct({ id, isOwner, user }) {
 
 SingleProduct.propTypes = {
   id: PropTypes.string.isRequired,
+  isOwner: PropTypes.bool,
+  user: PropTypes.string,
 };
