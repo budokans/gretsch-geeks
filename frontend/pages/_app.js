@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/client';
 import withApollo from '../lib/withData';
 import Page from '../components/Page';
 import '../components/styles/nprogress.css';
+import 'normalize.css';
 import { CartContextProvider } from '../lib/cartState';
 
 // Page-top progress bar

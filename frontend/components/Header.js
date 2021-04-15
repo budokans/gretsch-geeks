@@ -12,14 +12,18 @@ const Logo = styled.h1`
   z-index: 2;
   position: relative;
 
-  @media (max-width: 1128px) {
-    margin-bottom: 0;
-  }
-
   a {
     color: white;
     text-transform: uppercase;
     padding: 0.5rem 1rem;
+  }
+
+  @media (max-width: 1128px) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 2.5em;
   }
 `;
 
@@ -32,7 +36,7 @@ const HeaderStyles = styled.header`
     align-items: stretch;
 
     @media (max-width: 1128px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
     }
   }
 
