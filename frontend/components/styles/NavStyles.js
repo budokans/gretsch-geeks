@@ -6,6 +6,7 @@ const NavStyles = styled.ul`
   display: flex;
   justify-self: end;
   font-size: 2rem;
+
   li,
   button {
     position: relative;
@@ -15,6 +16,7 @@ const NavStyles = styled.ul`
     background: none;
     border: 0;
     line-height: 1.3;
+    font-size: 1.3rem;
 
     @media (max-width: 820px) {
       font-size: 1rem;

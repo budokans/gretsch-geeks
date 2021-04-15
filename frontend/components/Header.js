@@ -18,7 +18,7 @@ const Logo = styled.h1`
     padding: 0.5rem 1rem;
   }
 
-  @media (max-width: 1128px) {
+  @media (max-width: 1144px) {
     margin-bottom: 0;
   }
 
@@ -36,7 +36,7 @@ const HeaderStyles = styled.header`
     justify-content: space-between;
     align-items: stretch;
 
-    @media (max-width: 1128px) {
+    @media (max-width: 1144px) {
       grid-template-columns: 100%;
     }
   }

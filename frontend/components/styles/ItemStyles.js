@@ -49,8 +49,14 @@ const ItemStyles = styled.div`
     & > * {
       background: white;
       border: 0;
-      font-size: 1rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
       padding: 1rem;
+      color: var(--black);
+
+      @media (max-width: 600px) {
+        font-size: 1rem;
+      }
     }
 
     a {
