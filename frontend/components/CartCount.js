@@ -14,6 +14,12 @@ const Dot = styled.div`
   /* Make digits same width */
   font-feature-settings: 'tnum';
   font-variant-numeric: tabular-nums;
+
+  @media (max-width: 820px) {
+    padding: 0.3rem;
+    min-width: 2rem;
+    font-size: 11px;
+  }
 `;
 
 const AnimationStyles = styled.span`

@@ -12,6 +12,10 @@ const Logo = styled.h1`
   z-index: 2;
   position: relative;
 
+  @media (max-width: 1128px) {
+    margin-bottom: 0;
+  }
+
   a {
     color: white;
     text-transform: uppercase;
@@ -26,12 +30,26 @@ const HeaderStyles = styled.header`
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     align-items: stretch;
+
+    @media (max-width: 1128px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   .sub-bar {
     border-bottom: 1px solid var(--black, black);
     display: grid;
     grid-template-columns: 1fr auto;
+    max-width: var(--maxWidth);
+    margin: 0 auto;
+
+    input {
+      padding-left: 15px;
+    }
+
+    input:focus {
+      outline: none;
+    }
   }
 `;
 

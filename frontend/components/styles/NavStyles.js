@@ -16,8 +16,9 @@ const NavStyles = styled.ul`
     font-size: 1.5rem;
     background: none;
     border: 0;
-    @media (max-width: 700px) {
-      font-size: 10px;
+
+    @media (max-width: 820px) {
+      font-size: 12px;
       padding: 0 10px;
     }
   }
@@ -29,6 +30,10 @@ const NavStyles = styled.ul`
 
   li {
     padding: 1rem 3rem;
+    @media (max-width: 820px) {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
 
     &:before {
       content: '';
@@ -72,7 +77,6 @@ const NavStyles = styled.ul`
 
   @media (max-width: 1100px) {
     border-top: 1px solid var(--lightGray);
-    width: 100%;
     justify-content: center;
     font-size: 1.5rem;
   }
