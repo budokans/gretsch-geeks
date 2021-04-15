@@ -5,7 +5,7 @@ export default function SingleProductPage({ query }) {
   return (
     <SingleProduct
       id={query.id}
-      // isOwner={query.isOwner}
+      isOwner={query.isOwner}
       user={query.currentUserId}
     />
   );

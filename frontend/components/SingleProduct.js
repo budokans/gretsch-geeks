@@ -3,9 +3,11 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled from 'styled-components';
+import Link from 'next/link';
 import DisplayError from './ErrorMessage';
 import formatMoney from '../lib/formatMoney';
 import AddToCart from './AddToCart';
+import DeleteProduct from './DeleteProduct';
 
 const ProductStyles = styled.div`
   display: grid;
@@ -39,7 +41,7 @@ const SINGLE_ITEM_QUERY = gql`
   }
 `;
 
-export default function SingleProduct({ id, user }) {
+export default function SingleProduct({ id, isOwner, user }) {
   const { data, error, loading } = useQuery(SINGLE_ITEM_QUERY, {
     variables: { id },
   });
@@ -48,6 +50,8 @@ export default function SingleProduct({ id, user }) {
   if (error) return <DisplayError error={error} />;
 
   const { Product: product } = data;
+
+  console.log({ user, isOwner });
 
   return (
     <ProductStyles>
@@ -65,6 +69,14 @@ export default function SingleProduct({ id, user }) {
       </div>
       <div className="button-list">
         <AddToCart id={product.id} isSignedIn={!!user} />
+        {user && isOwner && (
+          <>
+            <Link href={{ pathname: '/update', query: { id: product.id } }}>
+              Edit
+            </Link>
+            <DeleteProduct id={product.id}>Delete</DeleteProduct>
+          </>
+        )}
       </div>
     </ProductStyles>
   );
