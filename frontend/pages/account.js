@@ -12,7 +12,7 @@ export default function AccountPage() {
         <title>Sick Fits | {`${!me ? 'Your' : me.name}'s Account`}</title>
       </Head>
       <PleaseSignIn>
-        <h2>Signed in as {me.name}</h2>
+        <h2>Signed in as {me?.name}</h2>
         <RequestReset />
       </PleaseSignIn>
     </>
