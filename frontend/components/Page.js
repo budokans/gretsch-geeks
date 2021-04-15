@@ -51,6 +51,10 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Radnika Next', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     cursor: pointer;
   }
+
+  li {
+    list-style: none;
+  }
 `;
 
 const Inner = styled.div`

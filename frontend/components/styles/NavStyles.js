@@ -6,9 +6,8 @@ const NavStyles = styled.ul`
   display: flex;
   justify-self: end;
   font-size: 2rem;
-  a,
+  li,
   button {
-    padding: 1rem 3rem;
     display: flex;
     align-items: center;
     position: relative;
@@ -21,6 +20,15 @@ const NavStyles = styled.ul`
       font-size: 10px;
       padding: 0 10px;
     }
+  }
+
+  button {
+    padding: 0;
+  }
+
+  li {
+    padding: 1rem 3rem;
+
     &:before {
       content: '';
       width: 2px;
@@ -56,6 +64,7 @@ const NavStyles = styled.ul`
       }
     }
   }
+
   @media (max-width: 1100px) {
     border-top: 1px solid var(--lightGray);
     width: 100%;

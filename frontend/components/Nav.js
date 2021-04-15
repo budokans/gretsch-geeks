@@ -11,23 +11,35 @@ export default function Nav() {
 
   return (
     <NavStyles>
-      <Link href="/products">Products</Link>
+      <li>
+        <Link href="/products">Products</Link>
+      </li>
       {authenticatedUser ? (
         <>
-          <Link href="/sell">Sell</Link>
-          <Link href="/orders">Orders</Link>
-          <Link href="/account">Account</Link>
-          <button type="button" onClick={toggleCartOpen}>
-            Cart
-            <CartCount
-              count={authenticatedUser.cart.reduce(
-                (tally, cartItem) =>
-                  tally + (cartItem.product ? cartItem.quantity : 0),
-                0
-              )}
-            />
-          </button>
-          <SignOut />
+          <li>
+            <Link href="/sell">Sell</Link>
+          </li>
+          <li>
+            <Link href="/orders">Orders</Link>
+          </li>
+          <li>
+            <Link href="/account">Account</Link>
+          </li>
+          <li>
+            <button type="button" onClick={toggleCartOpen}>
+              Cart
+              <CartCount
+                count={authenticatedUser.cart.reduce(
+                  (tally, cartItem) =>
+                    tally + (cartItem.product ? cartItem.quantity : 0),
+                  0
+                )}
+              />
+            </button>
+          </li>
+          <li>
+            <SignOut />
+          </li>
         </>
       ) : (
         <Link href="/signin">Sign in</Link>
