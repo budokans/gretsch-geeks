@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useEffect, useRef } from 'react';
 import { useCartContext } from '../lib/cartState';
 
@@ -20,31 +20,41 @@ const Dot = styled.div`
     min-width: 2rem;
     font-size: 11px;
   }
-`;
 
-const AnimationStyles = styled.span`
-  position: relative;
-
-  .count {
-    display: block;
-    position: relative;
-    transition: transform 0.4s;
-    backface-visibility: hidden;
-  }
-
-  .count-enter {
-    transform: scale(4) rotateY(0.5turn);
-  }
-
-  .count-enter-active {
-    transform: rotateX(0);
-  }
-
-  .count-exit {
-    top: 0;
-    position: absolute;
+  @media (max-width: 600px) {
+    padding: 0.3rem;
+    font-size: 8px;
+    min-width: 0;
   }
 `;
+
+// const AnimationStyles = styled.span`
+//   position: relative;
+
+//   .count {
+//     display: block;
+//     position: relative;
+//     transition: transform 0.4s;
+//     backface-visibility: hidden;
+
+//     @media (max-width: 600px) {
+//       display: none;
+//     }
+//   }
+
+//   .count-enter {
+//     transform: scale(4) rotateY(0.5turn);
+//   }
+
+//   .count-enter-active {
+//     transform: rotateX(0);
+//   }
+
+//   .count-exit {
+//     top: 0;
+//     position: absolute;
+//   }
+// `;
 
 export default function CartCount({ count }) {
   const { openCart } = useCartContext();
@@ -60,19 +70,19 @@ export default function CartCount({ count }) {
   }, [count]);
 
   return (
-    <AnimationStyles>
-      <TransitionGroup>
-        <CSSTransition
-          unmountOnExit
-          className="count"
-          classNames="count"
-          key={count}
-          timeout={{ enter: 400, exit: 400 }}
-        >
-          <Dot>{count}</Dot>
-        </CSSTransition>
-      </TransitionGroup>
-    </AnimationStyles>
+    // <AnimationStyles>
+    //   <TransitionGroup>
+    //     <CSSTransition
+    //       unmountOnExit
+    //       className="count"
+    //       classNames="count"
+    //       key={count}
+    //       timeout={{ enter: 400, exit: 400 }}
+    //     >
+    <Dot>{count}</Dot>
+    //     </CSSTransition>
+    //   </TransitionGroup>
+    // </AnimationStyles>
   );
 }
 

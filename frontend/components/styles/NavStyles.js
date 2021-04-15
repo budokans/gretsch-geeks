@@ -8,18 +8,22 @@ const NavStyles = styled.ul`
   font-size: 2rem;
   li,
   button {
-    display: flex;
-    align-items: center;
     position: relative;
     text-transform: uppercase;
     font-weight: 900;
     font-size: 1.5rem;
     background: none;
     border: 0;
+    line-height: 1.3;
 
     @media (max-width: 820px) {
-      font-size: 0.7rem;
+      font-size: 1rem;
       padding: 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 0.75rem;
+      padding: 0 7px;
     }
   }
 
@@ -32,8 +36,12 @@ const NavStyles = styled.ul`
     padding: 1rem 3rem;
 
     @media (max-width: 820px) {
-      font-size: 0.7rem;
-      padding: 5px 7px;
+      font-size: 1rem;
+      padding: 10px 7px;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 0.75rem;
     }
 
     &:before {
@@ -47,22 +55,28 @@ const NavStyles = styled.ul`
       top: 0;
       bottom: 0;
     }
-    &:after {
-      height: 2px;
-      background: red;
-      content: '';
-      width: 0;
-      position: absolute;
-      transform: translateX(-50%);
-      transition: width 0.4s;
-      transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
-      left: 50%;
-      margin-top: 2rem;
+
+    @media (min-width: 820px) {
+      &:after {
+        height: 2px;
+        background: red;
+        content: '';
+        width: 0;
+        position: absolute;
+        transform: translateX(-50%);
+        transition: width 0.4s;
+        transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
+        left: 50%;
+        margin-top: 2rem;
+      }
     }
   }
+
   a,
   li,
   button {
+    display: flex;
+    align-items: center;
     &:hover,
     &:focus {
       outline: none;
@@ -71,7 +85,8 @@ const NavStyles = styled.ul`
         width: calc(100% - 60px);
       }
       @media (max-width: 700px) {
-        width: calc(100% - 10px);
+        /* width: calc(100% - 10px); */
+        text-decoration: var(--red) underline;
       }
     }
   }
