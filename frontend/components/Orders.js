@@ -39,6 +39,15 @@ const OrdersUl = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-gap: 4rem;
+  padding-left: 0;
+
+  @media (max-width: 600px) {
+    grid-gap: 2rem;
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
 `;
 
 function countOrderItems(order) {

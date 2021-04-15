@@ -64,6 +64,11 @@ const Inner = styled.div`
 
   @media (max-width: 600px) {
     padding: 1rem 0;
+
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
   }
 `;
 
