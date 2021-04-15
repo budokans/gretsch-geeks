@@ -11,16 +11,44 @@ import DeleteProduct from './DeleteProduct';
 
 const ProductStyles = styled.div`
   display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
-  max-width: var(--max-width);
+  padding: 2rem;
+  border: 1px solid var(--lightGrey);
+  grid-template-columns: 1fr 1fr;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
   justify-content: center;
   align-items: top;
   grid-gap: 2rem;
+  box-shadow: var(--bs);
 
   img {
     width: 100%;
     object-fit: contain;
+  }
+
+  .button-list {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > * {
+      margin: 0.4rem 0;
+      background: white;
+      border: 2px solid var(--red);
+      background-color: red;
+      color: white;
+      border-radius: 5px;
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      line-height: 1.3;
+    }
+    a {
+      text-align: center;
+    }
+    a:hover {
+      text-decoration: none;
+    }
   }
 `;
 
@@ -64,17 +92,17 @@ export default function SingleProduct({ id, isOwner, user }) {
         <h2>{product.name}</h2>
         <p>{formatMoney(product.price)}</p>
         <p>{product.description}</p>
-      </div>
-      <div className="button-list">
-        <AddToCart id={product.id} isSignedIn={!!user} />
-        {user && !!isOwner && (
-          <>
-            <Link href={{ pathname: '/update', query: { id: product.id } }}>
-              Edit
-            </Link>
-            <DeleteProduct id={product.id}>Delete</DeleteProduct>
-          </>
-        )}
+        <div className="button-list">
+          <AddToCart id={product.id} isSignedIn={!!user} />
+          {user && !!isOwner && (
+            <>
+              <Link href={{ pathname: '/update', query: { id: product.id } }}>
+                Edit
+              </Link>
+              <DeleteProduct id={product.id}>Delete</DeleteProduct>
+            </>
+          )}
+        </div>
       </div>
     </ProductStyles>
   );
