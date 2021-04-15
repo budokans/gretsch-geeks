@@ -58,7 +58,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const Inner = styled.div`
-  max-width: var(--max-width);
+  max-width: var(--maxWidth);
   margin: 0 auto;
   padding: 2rem;
 `;
