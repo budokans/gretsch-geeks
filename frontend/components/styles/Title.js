@@ -6,6 +6,11 @@ const Title = styled.h3`
   transform: skew(-5deg) rotate(-1deg);
   margin-top: -3rem;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 600px) {
+    margin-top: -2rem;
+  }
+
   a {
     background: var(--red);
     display: inline;
@@ -14,6 +19,10 @@ const Title = styled.h3`
     text-align: center;
     color: white;
     padding: 0 1rem;
+
+    @media (max-width: 600px) {
+      font-size: 2rem;
+    }
   }
 `;
 

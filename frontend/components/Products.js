@@ -31,6 +31,13 @@ const ProductsListStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
+
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 0;
+    width: 100%;
+  }
 `;
 
 export default function ProductsSignedIn({ pageNum, user }) {

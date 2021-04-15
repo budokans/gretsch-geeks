@@ -61,6 +61,10 @@ const Inner = styled.div`
   max-width: var(--maxWidth);
   margin: 0 auto;
   padding: 2rem;
+
+  @media (max-width: 600px) {
+    padding: 1rem 0;
+  }
 `;
 
 export default function Page({ children }) {
