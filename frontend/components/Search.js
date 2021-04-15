@@ -34,7 +34,7 @@ const SEARCH_PRODUCTS_QUERY = gql`
 
 export default function Search() {
   const router = useRouter();
-  const { id: currentUserId } = useUser();
+  const user = useUser();
 
   const [
     searchProducts,
@@ -64,8 +64,8 @@ export default function Search() {
       router.push({
         pathname: `/product/${selectedItem.id}`,
         query: {
-          isOwner: currentUserId === selectedItem.user.id,
-          currentUserId,
+          isOwner: user?.id === selectedItem.user.id,
+          currentUserId: user?.id,
           productOwnerId: selectedItem.user.id,
         },
       });
