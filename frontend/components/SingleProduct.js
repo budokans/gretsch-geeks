@@ -5,6 +5,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import DisplayError from './ErrorMessage';
 import formatMoney from '../lib/formatMoney';
+import AddToCart from './AddToCart';
 
 const ProductStyles = styled.div`
   display: grid;
@@ -24,6 +25,7 @@ const ProductStyles = styled.div`
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
     Product(where: { id: $id }) {
+      id
       name
       price
       description
@@ -37,7 +39,7 @@ const SINGLE_ITEM_QUERY = gql`
   }
 `;
 
-export default function SingleProduct({ id }) {
+export default function SingleProduct({ id, user }) {
   const { data, error, loading } = useQuery(SINGLE_ITEM_QUERY, {
     variables: { id },
   });
@@ -60,6 +62,9 @@ export default function SingleProduct({ id }) {
         <h2>{product.name}</h2>
         <p>{formatMoney(product.price)}</p>
         <p>{product.description}</p>
+      </div>
+      <div className="button-list">
+        <AddToCart id={product.id} isSignedIn={!!user} />
       </div>
     </ProductStyles>
   );

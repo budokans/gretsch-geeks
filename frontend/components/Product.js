@@ -10,6 +10,7 @@ import AddToCart from './AddToCart';
 export default function Product({ product, user }) {
   const currentUserId = user?.id;
   const productOwnerId = product.user?.id;
+  const isOwner = currentUserId === productOwnerId;
 
   return (
     <ItemStyles>
@@ -18,19 +19,26 @@ export default function Product({ product, user }) {
         alt={product.name}
       />
       <Title>
-        <Link href={`/product/${product.id}`}>{product.name}</Link>
+        <Link
+          href={{
+            pathname: `/product/${product.id}`,
+            query: { isOwner, currentUserId },
+          }}
+        >
+          {product.name}
+        </Link>
       </Title>
       <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
       <div className="buttonList">
-        {user && currentUserId === productOwnerId && (
+        {user && isOwner && (
           <Link href={{ pathname: '/update', query: { id: product.id } }}>
             Edit
           </Link>
         )}
 
         <AddToCart id={product.id} isSignedIn={!!user} />
-        {user && currentUserId === productOwnerId && (
+        {user && isOwner && (
           <DeleteProduct id={product.id}>Delete</DeleteProduct>
         )}
       </div>
