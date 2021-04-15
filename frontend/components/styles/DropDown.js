@@ -17,8 +17,18 @@ const DropDownItem = styled.div`
   align-items: center;
   border-left: 10px solid
     ${(props) => (props.highlighted ? props.theme.lightgrey : 'white')};
+
+  @media (max-width: 600px) {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+  }
+
   img {
     margin-right: 10px;
+
+    @media (max-width: 600px) {
+      margin-right: 7px;
+    }
   }
 `;
 
@@ -39,8 +49,13 @@ const SearchStyles = styled.div`
     padding: 10px;
     border: 0;
     font-size: 2rem;
+
     &.loading {
       animation: ${glow} 0.5s ease-in-out infinite alternate;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 1.2rem;
     }
   }
 `;
