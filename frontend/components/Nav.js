@@ -42,7 +42,9 @@ export default function Nav() {
           </li>
         </>
       ) : (
-        <Link href="/signin">Sign in</Link>
+        <li>
+          <Link href="/signin">Sign in</Link>
+        </li>
       )}
     </NavStyles>
   );

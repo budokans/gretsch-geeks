@@ -24,6 +24,7 @@ const NavStyles = styled.ul`
 
   button {
     padding: 0;
+    color: var(--black);
   }
 
   li {
@@ -52,6 +53,10 @@ const NavStyles = styled.ul`
       left: 50%;
       margin-top: 2rem;
     }
+  }
+  a,
+  li,
+  button {
     &:hover,
     &:focus {
       outline: none;
