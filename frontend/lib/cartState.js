@@ -9,8 +9,6 @@ export function CartContextProvider({ children }) {
   const [cartOpen, setCartOpen] = useState(false);
 
   const handleClickOutside = (e) => {
-    console.log('clicking anywhere');
-    console.log(node.current.contains(e.target));
     if (node.current.contains(e.target)) {
       // inside click
       return;

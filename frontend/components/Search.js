@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { throttle } from 'lodash';
 import { useRouter } from 'next/router';
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown';
+import { useUser } from './User';
 
 const SEARCH_PRODUCTS_QUERY = gql`
   query SEARCH_PRODUCTS_QUERY($searchTerm: String!) {
@@ -24,12 +25,16 @@ const SEARCH_PRODUCTS_QUERY = gql`
         }
         altText
       }
+      user {
+        id
+      }
     }
   }
 `;
 
 export default function Search() {
   const router = useRouter();
+  const { id: currentUserId } = useUser();
 
   const [
     searchProducts,
@@ -58,6 +63,11 @@ export default function Search() {
     onSelectedItemChange({ selectedItem }) {
       router.push({
         pathname: `/product/${selectedItem.id}`,
+        query: {
+          isOwner: currentUserId === selectedItem.user.id,
+          currentUserId,
+          productOwnerId: selectedItem.user.id,
+        },
       });
     },
     itemToString: (item) => item?.name || '',

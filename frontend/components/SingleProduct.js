@@ -8,6 +8,7 @@ import DisplayError from './ErrorMessage';
 import formatMoney from '../lib/formatMoney';
 import AddToCart from './AddToCart';
 import DeleteProduct from './DeleteProduct';
+import { useUser } from './User';
 
 const ProductStyles = styled.div`
   display: grid;
@@ -69,10 +70,12 @@ const SINGLE_ITEM_QUERY = gql`
   }
 `;
 
-export default function SingleProduct({ id, isOwner, user }) {
+export default function SingleProduct({ id, isOwner }) {
   const { data, error, loading } = useQuery(SINGLE_ITEM_QUERY, {
     variables: { id },
   });
+
+  const user = useUser();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <DisplayError error={error} />;
@@ -111,5 +114,4 @@ export default function SingleProduct({ id, isOwner, user }) {
 SingleProduct.propTypes = {
   id: PropTypes.string.isRequired,
   isOwner: PropTypes.bool,
-  user: PropTypes.string,
 };
