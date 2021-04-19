@@ -113,3 +113,4 @@ dist
 # VSCode stuff
 .vscode
 
+server/
