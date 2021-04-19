@@ -33,7 +33,7 @@ const { withAuth } = createAuth({
   // In case no user exists yet
   initFirstItem: {
     fields: ['name', 'email', 'password'],
-    // TO DO: add initial roles here
+    skipKeystoneWelcome: true,
   },
   passwordResetLink: {
     async sendToken(args) {
@@ -52,12 +52,14 @@ export default withAuth(
       },
     },
     db: {
-      adapter: 'mongoose',
+      provider: 'postgresql',
       url: databaseURL,
-      async onConnect(keystone) {
+      onConnect: async (keystone) => {
         console.log('Connected to database!');
         if (process.argv.includes('--seed-data')) {
-          await insertSeedData(keystone);
+          await insertSeedData(keystone).catch((err) => {
+            console.log(err);
+          });
         }
       },
     },
