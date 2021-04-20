@@ -24,7 +24,7 @@ const Dot = styled.div`
   @media (max-width: 600px) {
     padding: 0.3rem;
     font-size: 8px;
-    min-width: 0;
+    min-width: 1.5rem;
   }
 `;
 
