@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
+import Loader from 'react-loader-spinner';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import formatMoney from '../lib/formatMoney';
 import DisplayError from './ErrorMessage';
 import OrderStyles from './styles/OrderStyles';
+import { LoadingStyles } from './styles/LoadingStyles';
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -38,7 +40,19 @@ export default function Order({ id }) {
     variables: { id },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <LoadingStyles>
+        <Loader
+          type="TailSpin"
+          color="#ff0000"
+          height={80}
+          width={80}
+          className="spinner"
+        />
+      </LoadingStyles>
+    );
+
   if (error) return <DisplayError error={error} />;
 
   const { order } = data;

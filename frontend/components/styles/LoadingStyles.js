@@ -5,4 +5,8 @@ export const LoadingStyles = styled.div`
   text-align: center;
   margin-top: 15rem;
   margin-bottom: 2rem;
+
+  @media (max-width: 600px) {
+    min-height: 700px;
+  }
 `;
