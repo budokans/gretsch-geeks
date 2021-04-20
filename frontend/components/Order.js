@@ -26,7 +26,13 @@ const SINGLE_ORDER_QUERY = gql`
         quantity
         photo {
           image {
-            publicUrlTransformed
+            publicUrlTransformed(
+              transformation: {
+                crop: "limit"
+                quality: "auto:good"
+                width: "400"
+              }
+            )
           }
           altText
         }

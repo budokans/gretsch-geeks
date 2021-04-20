@@ -23,6 +23,7 @@ export const ALL_PRODUCTS_QUERY = gql`
               width: "400"
               crop: "limit"
               quality: "auto:best"
+
             }
           )
         }
