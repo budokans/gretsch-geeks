@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import Loader from 'react-loader-spinner';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
 import formatMoney from '../lib/formatMoney';
 import DisplayError from './ErrorMessage';
+import { LoadingStyles } from './styles/LoadingStyles';
 import OrderItemStyles from './styles/OrderItemStyles';
 import { useUser } from './User';
 
@@ -61,7 +63,19 @@ export default function Orders() {
     variables: { id: me.id },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <LoadingStyles>
+        <Loader
+          type="TailSpin"
+          color="#ff0000"
+          height={80}
+          width={80}
+          className="spinner"
+        />
+      </LoadingStyles>
+    );
+
   if (error) return <DisplayError error={error} />;
 
   const { allOrders } = data;
