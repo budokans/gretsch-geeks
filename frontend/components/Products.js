@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
@@ -29,12 +30,20 @@ export const ALL_PRODUCTS_QUERY = gql`
   }
 `;
 
+const LoadingStyles = styled.div`
+  min-height: 1000px;
+  text-align: center;
+  margin-top: 15rem;
+  margin-bottom: 2rem;
+`;
+
 const ProductsListStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  text-align: center;
 
   @media (max-width: 600px) {
     display: flex;
@@ -55,7 +64,6 @@ export default function ProductsSignedIn({ pageNum, user }) {
   const productsCount = countData?._allProductsMeta.count;
   const pageCount = Math.ceil(productsCount / perPage);
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Oh no! Error: {error.message}</p>;
 
   if (pageNum > pageCount) {
@@ -63,11 +71,25 @@ export default function ProductsSignedIn({ pageNum, user }) {
   }
 
   return (
-    <ProductsListStyles>
-      {data?.allProducts.map((product) => (
-        <Product key={product.id} product={product} user={user} />
-      ))}
-    </ProductsListStyles>
+    <>
+      {loading && (
+        <LoadingStyles>
+          <Loader
+            type="TailSpin"
+            color="#ff0000"
+            height={80}
+            width={80}
+            className="spinner"
+          />
+        </LoadingStyles>
+      )}
+
+      <ProductsListStyles>
+        {data?.allProducts.map((product) => (
+          <Product key={product.id} product={product} user={user} />
+        ))}
+      </ProductsListStyles>
+    </>
   );
 }
 
