@@ -91,7 +91,9 @@ const SINGLE_ITEM_QUERY = gql`
       description
       photo {
         image {
-          publicUrlTransformed
+          publicUrlTransformed(
+            transformation: { crop: "limit", quality: "auto:good" }
+          )
         }
         altText
       }

@@ -29,10 +29,10 @@ const ItemStyles = styled.div`
     flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
+    text-align: center;
 
     @media (max-width: 600px) {
       font-size: 1rem;
-      text-align: center;
       padding: 0;
       margin: 0.3rem auto 1rem;
     }
