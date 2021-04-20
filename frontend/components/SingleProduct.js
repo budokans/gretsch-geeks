@@ -92,7 +92,11 @@ const SINGLE_ITEM_QUERY = gql`
       photo {
         image {
           publicUrlTransformed(
-            transformation: { crop: "limit", quality: "auto:good" }
+            transformation: {
+              crop: "limit"
+              quality: "auto:best"
+              width: "450"
+            }
           )
         }
         altText
