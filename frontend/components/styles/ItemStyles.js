@@ -29,10 +29,10 @@ const ItemStyles = styled.div`
     flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
+    text-align: center;
 
     @media (max-width: 600px) {
       font-size: 1rem;
-      text-align: center;
       padding: 0;
       margin: 0.3rem auto 1rem;
     }
@@ -50,9 +50,13 @@ const ItemStyles = styled.div`
       background: white;
       border: 0;
       font-size: 1.2rem;
-      text-transform: uppercase;
-      padding: 1rem;
+      /* text-transform: uppercase; */
+      padding: 1.5rem 1rem;
       color: var(--black);
+
+      &:disabled {
+        background-color: var(--lightGrey);
+      }
 
       @media (max-width: 600px) {
         font-size: 1rem;

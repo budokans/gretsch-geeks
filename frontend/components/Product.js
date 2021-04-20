@@ -32,7 +32,9 @@ export default function Product({ product, user }) {
       <p>{product.description}</p>
       <div className="buttonList">
         {user && isOwner && (
-          <Link href={{ pathname: '/update', query: { id: product.id } }}>
+          <Link
+            href={{ pathname: '/update', query: { id: product.id, isOwner } }}
+          >
             Edit
           </Link>
         )}

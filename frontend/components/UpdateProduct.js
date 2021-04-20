@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import Head from 'next/head';
 import { useMutation, useQuery } from '@apollo/client';
 import isEmpty from 'lodash/isEmpty';
+import { useRouter } from 'next/router';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
@@ -36,7 +37,9 @@ const UPDATE_PRODUCT_MUTATION = gql`
   }
 `;
 
-export default function UpdateProduct({ id }) {
+export default function UpdateProduct({ id, isOwner }) {
+  const router = useRouter();
+
   const { data, error } = useQuery(SINGLE_PRODUCT_QUERY, {
     variables: { id },
   });
@@ -66,6 +69,7 @@ export default function UpdateProduct({ id }) {
               price: inputs.price,
             },
           }).catch((err) => console.error(err.message));
+          router.push({ pathname: `product/${id}`, query: { isOwner } });
         }}
       >
         <DisplayError error={error || updateError} />
@@ -115,4 +119,5 @@ export default function UpdateProduct({ id }) {
 
 UpdateProduct.propTypes = {
   id: PropTypes.string.isRequired,
+  isOwner: PropTypes.bool,
 };

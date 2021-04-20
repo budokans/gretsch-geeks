@@ -16,7 +16,13 @@ export const ALL_PRODUCTS_QUERY = gql`
       description
       photo {
         image {
-          publicUrlTransformed
+          publicUrlTransformed(
+            transformation: {
+              width: "400"
+              crop: "limit"
+              quality: "auto:good"
+            }
+          )
         }
         altText
       }

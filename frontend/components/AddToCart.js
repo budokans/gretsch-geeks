@@ -34,7 +34,7 @@ export default function AddToCart({ id, isSignedIn }) {
       disabled={loading}
       aria-disabled={loading}
     >
-      Add{loading && 'ing'} to Cart 🛒
+      Add{loading && 'ing'} to Cart
     </button>
   );
 }
