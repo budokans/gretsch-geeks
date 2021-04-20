@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -9,6 +10,7 @@ import formatMoney from '../lib/formatMoney';
 import AddToCart from './AddToCart';
 import DeleteProduct from './DeleteProduct';
 import { useUser } from './User';
+import { LoadingStyles } from './styles/LoadingStyles';
 
 const ProductStyles = styled.div`
   display: grid;
@@ -112,7 +114,18 @@ export default function SingleProduct({ id, isOwner }) {
 
   const user = useUser();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <LoadingStyles>
+        <Loader
+          type="TailSpin"
+          color="#ff0000"
+          height={80}
+          width={80}
+          className="spinner"
+        />
+      </LoadingStyles>
+    );
   if (error) return <DisplayError error={error} />;
 
   const { Product: product } = data;
