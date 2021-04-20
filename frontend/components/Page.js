@@ -79,6 +79,10 @@ export default function Page({ children }) {
     <>
       <Head>
         <link rel="shortcut icon" href="/static/favicon.png" />
+        <meta
+          name="description"
+          content="A very overpriced apparel buy-and-sell store."
+        />
       </Head>
       <GlobalStyles />
       <Header />
