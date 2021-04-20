@@ -18,28 +18,27 @@ export const PAGINATION_QUERY = gql`
 export default function Pagination({ pageNum }) {
   const { data, error, loading } = useQuery(PAGINATION_QUERY);
 
-  if (loading) return <p>"Loading..."</p>;
   if (error) return <DisplayError error={error} />;
 
-  const productsCount = data._allProductsMeta.count;
+  const productsCount = data?._allProductsMeta.count;
   const pageCount = Math.ceil(productsCount / perPage);
 
   return (
     <PaginationStyles>
       <Head>
         <title>
-          Sick Fits | Page {pageNum} of {pageCount}
+          Sick Fits | Page {pageNum} of {loading ? '...' : pageCount}
         </title>
       </Head>
       <Link href={`/products/${pageNum - 1}`}>
-        <a aria-disabled={pageNum === 1}>← Previous</a>
+        <a aria-disabled={loading || pageNum === 1}>← Previous</a>
       </Link>
       <p>
-        Page {pageNum} of {pageCount}
+        Page {pageNum} of {loading ? '...' : pageCount}
       </p>
-      <p>{productsCount} items total</p>
+      <p>{loading ? '...' : productsCount} items total</p>
       <Link href={`/products/${pageNum + 1}`}>
-        <a aria-disabled={pageNum === pageCount}>Next →</a>
+        <a aria-disabled={loading || pageNum === pageCount}>Next →</a>
       </Link>
     </PaginationStyles>
   );

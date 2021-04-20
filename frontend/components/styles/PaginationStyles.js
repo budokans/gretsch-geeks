@@ -11,6 +11,7 @@ const PaginationStyles = styled.div`
   margin: 0 auto;
   border: 1px solid var(--lightGray);
   border-radius: 10px;
+  min-height: 35px;
 
   @media (max-width: 600px) {
     margin: 0;
@@ -18,6 +19,7 @@ const PaginationStyles = styled.div`
     border-radius: 0;
     border-right: none;
     border-left: none;
+    min-height: 25px;
   }
 
   & > * {
