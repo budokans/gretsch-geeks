@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     src: url('../static/radnikanext-medium-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
   }
 
   html {
