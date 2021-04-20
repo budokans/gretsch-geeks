@@ -60,7 +60,7 @@ const ProductStyles = styled.div`
       color: white;
       border-radius: 5px;
       font-size: 1.5rem;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0;
       line-height: 1.3;
 
       @media (max-width: 930px) {

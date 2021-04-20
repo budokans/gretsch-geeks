@@ -20,7 +20,7 @@ const DropDownItem = styled.div`
 
   @media (max-width: 600px) {
     padding: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   img {
@@ -55,7 +55,7 @@ const SearchStyles = styled.div`
     }
 
     @media (max-width: 600px) {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 `;
