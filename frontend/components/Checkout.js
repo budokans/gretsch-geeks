@@ -75,6 +75,7 @@ function CheckoutForm() {
     // 4. Handle any Stripe errors
     if (error) {
       setError(error);
+      setLoading(false);
       nProgress.done();
       return;
     }
