@@ -27,7 +27,11 @@ const SINGLE_ORDER_QUERY = gql`
         photo {
           image {
             publicUrlTransformed(
-              transformation: { crop: "limit", quality: "auto:good" }
+              transformation: {
+                crop: "limit"
+                quality: "auto:good"
+                width: "400"
+              }
             )
           }
           altText
