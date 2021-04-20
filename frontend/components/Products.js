@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Router from 'next/router';
 import Product from './Product';
+import { LoadingStyles } from './styles/LoadingStyles';
 import { perPage } from '../config';
 import { PAGINATION_QUERY } from './Pagination';
 
@@ -28,13 +29,6 @@ export const ALL_PRODUCTS_QUERY = gql`
       }
     }
   }
-`;
-
-const LoadingStyles = styled.div`
-  min-height: 1000px;
-  text-align: center;
-  margin-top: 15rem;
-  margin-bottom: 2rem;
 `;
 
 const ProductsListStyles = styled.div`

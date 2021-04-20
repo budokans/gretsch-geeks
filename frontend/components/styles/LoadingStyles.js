@@ -1,0 +1,8 @@
+import styled from 'styled-components';
+
+export const LoadingStyles = styled.div`
+  min-height: 1000px;
+  text-align: center;
+  margin-top: 15rem;
+  margin-bottom: 2rem;
+`;
