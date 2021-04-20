@@ -20,9 +20,10 @@ export const ALL_PRODUCTS_QUERY = gql`
         image {
           publicUrlTransformed(
             transformation: {
-              crop: "limit"
-              quality: "auto:good"
               width: "400"
+              crop: "limit"
+              quality: "auto:best"
+
             }
           )
         }
