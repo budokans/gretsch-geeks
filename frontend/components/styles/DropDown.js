@@ -20,7 +20,7 @@ const DropDownItem = styled.div`
 
   @media (max-width: 600px) {
     padding: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   img {

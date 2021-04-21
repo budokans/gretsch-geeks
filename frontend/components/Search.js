@@ -21,7 +21,7 @@ const SEARCH_PRODUCTS_QUERY = gql`
       description
       photo {
         image {
-          publicUrlTransformed
+          publicUrlTransformed(transformation: { width: "50", quality: "auto" })
         }
         altText
       }
