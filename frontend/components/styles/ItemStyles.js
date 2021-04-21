@@ -18,7 +18,7 @@ const ItemStyles = styled.div`
     object-fit: cover;
 
     @media (max-width: 600px) {
-      height: 150px;
+      height: 200px;
       object-fit: cover;
     }
   }
