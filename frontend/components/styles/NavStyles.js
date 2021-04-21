@@ -12,7 +12,6 @@ const NavStyles = styled.ul`
     position: relative;
     text-transform: uppercase;
     font-weight: 900;
-    font-size: 1.5rem;
     background: none;
     border: 0;
     line-height: 1.3;
@@ -24,7 +23,6 @@ const NavStyles = styled.ul`
     }
 
     @media (max-width: 600px) {
-      font-size: 0.75rem;
       padding: 0 7px;
     }
   }
@@ -40,10 +38,6 @@ const NavStyles = styled.ul`
     @media (max-width: 820px) {
       font-size: 1rem;
       padding: 10px 7px;
-    }
-
-    @media (max-width: 600px) {
-      font-size: 0.75rem;
     }
 
     &:before {

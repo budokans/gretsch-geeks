@@ -11,9 +11,9 @@ export default function Nav() {
 
   return (
     <NavStyles>
-      <li>
+      {/* <li>
         <Link href="/products">Products</Link>
-      </li>
+      </li> */}
       {authenticatedUser ? (
         <>
           <li>
