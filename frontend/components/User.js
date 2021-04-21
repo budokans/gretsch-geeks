@@ -19,11 +19,7 @@ export const CURRENT_USER_QUERY = gql`
             photo {
               image {
                 publicUrlTransformed(
-                  transformation: {
-                    width: "400"
-                    crop: "limit"
-                    quality: "auto:best"
-                  }
+                  transformation: { width: "400", quality: "auto" }
                 )
               }
               altText
