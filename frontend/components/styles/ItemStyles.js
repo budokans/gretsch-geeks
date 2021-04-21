@@ -32,7 +32,7 @@ const ItemStyles = styled.div`
     text-align: center;
 
     @media (max-width: 600px) {
-      font-size: 1rem;
+      font-size: 1.2rem;
       padding: 0;
       margin: 0.3rem auto 1rem;
     }
@@ -59,7 +59,7 @@ const ItemStyles = styled.div`
       }
 
       @media (max-width: 600px) {
-        font-size: 1rem;
+        font-size: 1.2rem;
       }
     }
 
