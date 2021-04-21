@@ -67,6 +67,7 @@ export default function CreateProduct() {
               id="image"
               name="image"
               onChange={handleChange}
+              accept="image/*"
             />
           </label>
           <label htmlFor="name">
