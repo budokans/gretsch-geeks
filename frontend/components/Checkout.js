@@ -51,7 +51,8 @@ function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const me = useUser();
-  const [checkout, { error: GqlError }] = useMutation(CREATE_ORDER_MUTATION, {
+
+  const [checkout, { error: gqlError }] = useMutation(CREATE_ORDER_MUTATION, {
     refetchQueries: [
       { query: CURRENT_USER_QUERY },
       { query: USER_ORDERS_QUERY, variables: { id: me.id } },
@@ -104,7 +105,7 @@ function CheckoutForm() {
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
       {error && <p>{error.message}</p>}
-      {GqlError && <p>{GqlError.message}</p>}
+      {gqlError && <p>{gqlError.message}</p>}
 
       <CardElement />
       <SickButton type="submit" disabled={loading} aria-disabled={loading}>
