@@ -5,7 +5,7 @@ import Nav from './Nav';
 import Search from './Search';
 
 const Logo = styled.h1`
-  font-size: 4em;
+  font-size: 3.5em;
   background: red;
   margin-left: 2rem;
   transform: skew(-7deg);
@@ -65,7 +65,7 @@ export default function Header() {
     <HeaderStyles>
       <div className="bar">
         <Logo>
-          <Link href="/">Sick Fits</Link>
+          <Link href="/">Gretsch Geeks</Link>
         </Logo>
         <Nav />
       </div>

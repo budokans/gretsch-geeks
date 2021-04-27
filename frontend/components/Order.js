@@ -62,7 +62,7 @@ export default function Order({ id }) {
   return (
     <OrderStyles>
       <Head>
-        <title>Sick Fits | {order.user.name}'s Order</title>
+        <title>Gretsch Geeks | {order.user.name}'s Order</title>
       </Head>
       <p>
         <span>Order ID:</span>

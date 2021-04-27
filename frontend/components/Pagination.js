@@ -27,7 +27,7 @@ export default function Pagination({ pageNum }) {
     <PaginationStyles>
       <Head>
         <title>
-          Sick Fits | Page {pageNum} of {loading ? '...' : pageCount}
+          Gretsch Geeks | Page {pageNum} of {loading ? '...' : pageCount}
         </title>
       </Head>
       <Link href={`/products/${pageNum - 1}`}>
