@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   CardElement,
@@ -43,7 +44,7 @@ const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-function CheckoutForm() {
+function CheckoutForm({ disabled }) {
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
   const router = useRouter();
@@ -108,21 +109,33 @@ function CheckoutForm() {
       {gqlError && <p>{gqlError.message}</p>}
 
       <CardElement />
-      <SickButton type="submit" disabled={loading} aria-disabled={loading}>
+      <SickButton
+        type="submit"
+        disabled={loading || disabled}
+        aria-disabled={loading}
+      >
         Pay Now
       </SickButton>
     </CheckoutFormStyles>
   );
 }
 
-export default function Checkout() {
+export default function Checkout({ disabled }) {
   const [stripePromise, setStripePromise] = useState(() =>
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
   );
 
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm />
+      <CheckoutForm disabled={disabled} />
     </Elements>
   );
 }
+
+Checkout.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
+
+CheckoutForm.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
