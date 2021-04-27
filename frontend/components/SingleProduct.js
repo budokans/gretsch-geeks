@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import DisplayError from './ErrorMessage';
 import formatMoney from '../lib/formatMoney';
 import AddToCart from './AddToCart';
@@ -37,6 +38,12 @@ const ProductStyles = styled.div`
     margin: 0;
   }
 
+  p {
+    @media (max-width: 600px) {
+      font-size: 1.2rem;
+    }
+  }
+
   img {
     width: 100%;
     object-fit: contain;
@@ -51,6 +58,17 @@ const ProductStyles = styled.div`
     @media (max-width: 930px) {
       flex-direction: row;
       justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .back {
+      background: white;
+      color: var(--black);
+      border-color: var(--lightGrey);
+
+      @media (max-width: 600px) {
+        display: none;
+      }
     }
 
     & > * {
@@ -113,6 +131,7 @@ export default function SingleProduct({ id, isOwner }) {
   });
 
   const user = useUser();
+  const router = useRouter();
 
   if (loading)
     return (
@@ -153,6 +172,9 @@ export default function SingleProduct({ id, isOwner }) {
               <DeleteProduct id={product.id}>Delete</DeleteProduct>
             </>
           )}
+          <button type="button" onClick={() => router.back()} className="back">
+            Back
+          </button>
         </div>
       </div>
     </ProductStyles>
