@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import Head from 'next/head';
 import { useMutation, useQuery } from '@apollo/client';
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash.isempty';
 import { useRouter } from 'next/router';
+import Loader from 'react-loader-spinner';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
+import { LoadingStyles } from './styles/LoadingStyles';
 
 const SINGLE_PRODUCT_QUERY = gql`
   query SINGLE_PRODUCT_QUERY($id: ID!) {
@@ -37,7 +39,7 @@ const UPDATE_PRODUCT_MUTATION = gql`
   }
 `;
 
-export default function UpdateProduct({ id, isOwner }) {
+export default function UpdateProduct({ id }) {
   const router = useRouter();
 
   const { data, error } = useQuery(SINGLE_PRODUCT_QUERY, {
@@ -51,7 +53,18 @@ export default function UpdateProduct({ id, isOwner }) {
 
   const { inputs, handleChange } = useForm(data?.Product);
 
-  if (isEmpty(inputs)) return <p>Loading...</p>;
+  if (isEmpty(inputs))
+    return (
+      <LoadingStyles>
+        <Loader
+          type="TailSpin"
+          color="#ff0000"
+          height={80}
+          width={80}
+          className="spinner"
+        />
+      </LoadingStyles>
+    );
 
   return (
     <>
@@ -69,7 +82,7 @@ export default function UpdateProduct({ id, isOwner }) {
               price: inputs.price,
             },
           }).catch((err) => console.error(err.message));
-          router.push({ pathname: `product/${id}`, query: { isOwner } });
+          router.push({ pathname: `product/${id}`, query: { isOwner: true } });
         }}
       >
         <DisplayError error={error || updateError} />
@@ -119,5 +132,4 @@ export default function UpdateProduct({ id, isOwner }) {
 
 UpdateProduct.propTypes = {
   id: PropTypes.string.isRequired,
-  isOwner: PropTypes.bool,
 };

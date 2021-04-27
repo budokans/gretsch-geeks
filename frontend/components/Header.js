@@ -27,6 +27,15 @@ const Logo = styled.h1`
     margin-left: 1rem;
     margin-left: 0;
     text-align: center;
+    transform: none;
+    font-style: italic;
+    line-height: 1.1;
+    margin-top: 0;
+    padding: 0.75rem 0;
+
+    a:hover {
+      text-decoration: none;
+    }
   }
 `;
 

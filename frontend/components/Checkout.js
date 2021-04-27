@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   CardElement,
@@ -43,15 +44,16 @@ const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-function CheckoutForm() {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+function CheckoutForm({ disabled }) {
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { closeCart } = useCartContext();
   const stripe = useStripe();
   const elements = useElements();
   const me = useUser();
-  const [checkout, { error: GqlError }] = useMutation(CREATE_ORDER_MUTATION, {
+
+  const [checkout, { error: gqlError }] = useMutation(CREATE_ORDER_MUTATION, {
     refetchQueries: [
       { query: CURRENT_USER_QUERY },
       { query: USER_ORDERS_QUERY, variables: { id: me.id } },
@@ -63,16 +65,22 @@ function CheckoutForm() {
     e.preventDefault();
     setLoading(true);
 
-    // 2. Start the page transition
-    nProgress.start();
+    // 2. Disable form submission until Stripe has loaded
+    if (!stripe || !elements) {
+      return;
+    }
 
-    // 3. Create the payment method via Stripe (token comes back here if success)
+    // 3. Start the page transition and get reference to mounted CardElement
+    nProgress.start();
+    const cardElement = elements.getElement(CardElement);
+
+    // 4. Create the payment method via Stripe (token comes back here if success)
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card: elements.getElement(CardElement),
+      card: cardElement,
     });
 
-    // 4. Handle any Stripe errors
+    // 5. Handle any Stripe errors
     if (error) {
       setError(error);
       setLoading(false);
@@ -80,48 +88,66 @@ function CheckoutForm() {
       return;
     }
 
-    // 5. Send token to Keystone server via custom mutation
-    const order = await checkout({
-      variables: {
-        token: paymentMethod.id,
-      },
-    });
+    // 6. Send token to Keystone server via custom mutation
+    try {
+      const order = await checkout({
+        variables: {
+          token: paymentMethod.id,
+        },
+      });
+      // 7. Route to the order page
+      router.push({ pathname: `/order/${order.data.checkout.id}` });
+      // 8. Close cart
+      closeCart();
+      // 9. Turn off loader
+      setLoading(false);
+      nProgress.done();
 
-    // 6. Route to the order page
-    router.push({ pathname: `/order/${order.data.checkout.id}` });
+      // 10. Clear CardElement
+      elements.getElement(CardElement).clear();
+    } catch (error) {
+      // 9. Turn off loader
+      setLoading(false);
+      nProgress.done();
 
-    // 7. Close cart
-    closeCart();
-
-    // 8. Turn off loader
-    setLoading(false);
-    nProgress.done();
-
-    // 9. Clear CardElement
-    elements.getElement(CardElement).clear();
+      // 10. Clear CardElement
+      elements.getElement(CardElement).clear();
+    }
   }
 
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
-      {error && <p>{error.message}</p>}
-      {GqlError && <p>{GqlError.message}</p>}
+      {error && <p className="error">{error.message}</p>}
+      {gqlError && <p className="error">{gqlError.message}</p>}
 
       <CardElement />
-      <SickButton type="submit" disabled={loading} aria-disabled={loading}>
+      <SickButton
+        type="submit"
+        disabled={loading || disabled || !stripe}
+        aria-disabled={loading}
+      >
         Pay Now
       </SickButton>
     </CheckoutFormStyles>
   );
 }
 
-export default function Checkout() {
+export default function Checkout({ disabled }) {
   const [stripePromise, setStripePromise] = useState(() =>
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
   );
 
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm />
+      <CheckoutForm disabled={disabled} />
     </Elements>
   );
 }
+
+Checkout.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
+
+CheckoutForm.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
