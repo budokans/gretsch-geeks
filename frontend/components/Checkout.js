@@ -45,8 +45,8 @@ const CREATE_ORDER_MUTATION = gql`
 `;
 
 function CheckoutForm({ disabled }) {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { closeCart } = useCartContext();
   const stripe = useStripe();
@@ -65,16 +65,22 @@ function CheckoutForm({ disabled }) {
     e.preventDefault();
     setLoading(true);
 
-    // 2. Start the page transition
-    nProgress.start();
+    // 2. Disable form submission until Stripe has loaded
+    if (!stripe || !elements) {
+      return;
+    }
 
-    // 3. Create the payment method via Stripe (token comes back here if success)
+    // 3. Start the page transition and get reference to mounted CardElement
+    nProgress.start();
+    const cardElement = elements.getElement(CardElement);
+
+    // 4. Create the payment method via Stripe (token comes back here if success)
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card: elements.getElement(CardElement),
+      card: cardElement,
     });
 
-    // 4. Handle any Stripe errors
+    // 5. Handle any Stripe errors
     if (error) {
       setError(error);
       setLoading(false);
@@ -82,36 +88,42 @@ function CheckoutForm({ disabled }) {
       return;
     }
 
-    // 5. Send token to Keystone server via custom mutation
-    const order = await checkout({
-      variables: {
-        token: paymentMethod.id,
-      },
-    });
+    // 6. Send token to Keystone server via custom mutation
+    try {
+      const order = await checkout({
+        variables: {
+          token: paymentMethod.id,
+        },
+      });
+      // 7. Route to the order page
+      router.push({ pathname: `/order/${order.data.checkout.id}` });
+      // 8. Close cart
+      closeCart();
+      // 9. Turn off loader
+      setLoading(false);
+      nProgress.done();
 
-    // 6. Route to the order page
-    router.push({ pathname: `/order/${order.data.checkout.id}` });
+      // 10. Clear CardElement
+      elements.getElement(CardElement).clear();
+    } catch (error) {
+      // 9. Turn off loader
+      setLoading(false);
+      nProgress.done();
 
-    // 7. Close cart
-    closeCart();
-
-    // 8. Turn off loader
-    setLoading(false);
-    nProgress.done();
-
-    // 9. Clear CardElement
-    elements.getElement(CardElement).clear();
+      // 10. Clear CardElement
+      elements.getElement(CardElement).clear();
+    }
   }
 
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
-      {error && <p>{error.message}</p>}
-      {gqlError && <p>{gqlError.message}</p>}
+      {error && <p className="error">{error.message}</p>}
+      {gqlError && <p className="error">{gqlError.message}</p>}
 
       <CardElement />
       <SickButton
         type="submit"
-        disabled={loading || disabled}
+        disabled={loading || disabled || !stripe}
         aria-disabled={loading}
       >
         Pay Now

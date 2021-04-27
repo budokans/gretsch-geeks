@@ -52,6 +52,10 @@ export const Container = styled.div`
       color: green;
     }
 
+    .error {
+      color: var(--red);
+    }
+
     .total {
       font-size: 3rem;
       color: black;
