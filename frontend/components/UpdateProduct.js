@@ -37,7 +37,7 @@ const UPDATE_PRODUCT_MUTATION = gql`
   }
 `;
 
-export default function UpdateProduct({ id, isOwner }) {
+export default function UpdateProduct({ id }) {
   const router = useRouter();
 
   const { data, error } = useQuery(SINGLE_PRODUCT_QUERY, {
@@ -69,7 +69,7 @@ export default function UpdateProduct({ id, isOwner }) {
               price: inputs.price,
             },
           }).catch((err) => console.error(err.message));
-          router.push({ pathname: `product/${id}`, query: { isOwner } });
+          router.push({ pathname: `product/${id}`, query: { isOwner: true } });
         }}
       >
         <DisplayError error={error || updateError} />
@@ -119,5 +119,4 @@ export default function UpdateProduct({ id, isOwner }) {
 
 UpdateProduct.propTypes = {
   id: PropTypes.string.isRequired,
-  isOwner: PropTypes.bool,
 };
