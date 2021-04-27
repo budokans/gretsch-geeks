@@ -58,7 +58,7 @@
     "typescript": "^4.1.2"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "14.16.1"
   },
   "dependencies": {
     "@keystone-next/admin-ui": "^13.0.0",
