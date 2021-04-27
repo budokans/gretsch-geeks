@@ -62,7 +62,6 @@ const Inner = styled.div`
   max-width: var(--maxWidth);
   margin: 0 auto;
   padding: 2rem;
-  min-height: 1000px;
 
   @media (max-width: 600px) {
     padding: 1rem 0;
