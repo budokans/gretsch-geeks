@@ -85,7 +85,7 @@ export default function Orders() {
   return (
     <div>
       <Head>
-        <title>Sick Fits | Your Orders ({allOrders.length})</title>
+        <title>Gretsch Geeks | Your Orders ({allOrders.length})</title>
       </Head>
       <h2>You have {allOrders.length} orders!</h2>
       <OrdersUl>

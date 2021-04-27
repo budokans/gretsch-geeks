@@ -47,7 +47,7 @@ export default function CreateProduct() {
   return (
     <>
       <Head>
-        <title>Sick Fits | Sell an Item</title>
+        <title>Gretsch Geeks | Sell an Item</title>
       </Head>
       <Form
         onSubmit={async (e) => {

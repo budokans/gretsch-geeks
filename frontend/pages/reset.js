@@ -13,7 +13,7 @@ export default function ResetPage({ query }) {
   return (
     <Container>
       <Head>
-        <title>Sick Fits | Password Reset</title>
+        <title>Gretsch Geeks | Password Reset</title>
       </Head>
       {!query?.token ? (
         <>

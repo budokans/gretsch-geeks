@@ -61,7 +61,7 @@ export default function SignIn() {
   return (
     <>
       <Head>
-        <title>Sick Fits | Sign In</title>
+        <title>Gretsch Geeks | Sign In</title>
       </Head>
       <Form method="POST" onSubmit={handleSubmit}>
         <h2>Sign into your account</h2>

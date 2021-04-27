@@ -133,7 +133,7 @@ export default function SingleProduct({ id, isOwner }) {
   return (
     <ProductStyles>
       <Head>
-        <title>{product.name} | Sick Fits</title>
+        <title>{product.name} | Gretsch Geeks</title>
       </Head>
       <img
         src={product.photo.image.publicUrlTransformed}

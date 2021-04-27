@@ -9,7 +9,7 @@ export default function AccountPage() {
   return (
     <>
       <Head>
-        <title>Sick Fits | {`${!me ? 'Your' : me.name}'s Account`}</title>
+        <title>Gretsch Geeks | {`${!me ? 'Your' : me.name}'s Account`}</title>
       </Head>
       <PleaseSignIn>
         <h2>Signed in as {me?.name}</h2>

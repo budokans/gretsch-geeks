@@ -1,7 +1,7 @@
 {
-  "name": "sick-fits-frontend",
+  "name": "gretsch-geeks-frontend",
   "version": "1.0.0",
-  "description": "Sick Fits! An example React, GraphQL, Next and Apollo",
+  "description": "An e-commerce platform where users can buy and sell their Gretsch drums",
   "main": "index.js",
   "scripts": {
     "dev": "next -p 7777",

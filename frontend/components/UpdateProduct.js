@@ -56,7 +56,7 @@ export default function UpdateProduct({ id, isOwner }) {
   return (
     <>
       <Head>
-        <title>Sick Fits | Edit {inputs.name}</title>
+        <title>Gretsch Geeks | Edit {inputs.name}</title>
       </Head>
       <Form
         onSubmit={async (e) => {
