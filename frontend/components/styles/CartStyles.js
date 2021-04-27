@@ -40,15 +40,25 @@ export const Container = styled.div`
     border-top: 10px double var(--black);
     margin-top: 2rem;
     padding-top: 2rem;
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: 900;
 
     @media (max-width: 600px) {
-      font-size: 2rem;
+      font-size: 1.2rem;
     }
 
     p {
       margin: 0;
+      color: green;
+    }
+
+    .total {
+      font-size: 3rem;
+      color: black;
+
+      @media (max-width: 600px) {
+        font-size: 1.75rem;
+      }
     }
   }
 

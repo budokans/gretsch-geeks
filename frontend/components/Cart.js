@@ -29,7 +29,9 @@ export default function Cart() {
         ))}
       </ul>
       <footer>
-        <p>{formatMoney(calcTotalPrice(me.cart))}</p>
+        <p>It's on me!</p>
+        <p>4242 4242 4242 4242 | 02/22 | 222</p>
+        <p className="total">{formatMoney(calcTotalPrice(me.cart))}</p>
         <Checkout />
       </footer>
     </Container>
