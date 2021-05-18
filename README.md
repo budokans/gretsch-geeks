@@ -3,4 +3,4 @@ An E-commerce buy-sell platform for drummers that geek out on Gretsch drums. Bui
 
 # admin/backend
 
-Login URL: ggserver.stevenwebster.co
+Login URL: https//:ggserver.stevenwebster.co
